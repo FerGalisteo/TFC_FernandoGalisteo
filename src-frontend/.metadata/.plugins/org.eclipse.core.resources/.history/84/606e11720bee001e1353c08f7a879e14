@@ -1,0 +1,44 @@
+package com.dwes.security.entities;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.FutureOrPresent;
+
+@Entity
+@Table
+public class PerfilProfesional {
+	
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long id;
+
+	    private String titulo;
+
+	    @Column(length = 1000)
+	    private String descripcion;
+
+	    @FutureOrPresent
+	    private LocalDate fechaDisponible;
+
+	    @ElementCollection
+	    private List<String> categorias = new ArrayList<>();
+
+	    @ElementCollection(targetClass = LugarDisponible.class)
+	    @Enumerated(EnumType.STRING)
+	    private List<LugarDisponible> lugaresDisponibles = new ArrayList<>();
+
+	    @ElementCollection
+	    private List<String> fotos = new ArrayList<>();
+
+}
