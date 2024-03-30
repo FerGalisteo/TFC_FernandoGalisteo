@@ -1,5 +1,0 @@
-package com.dwes.security.entities;
-
-public enum Categorias {
-
-}
