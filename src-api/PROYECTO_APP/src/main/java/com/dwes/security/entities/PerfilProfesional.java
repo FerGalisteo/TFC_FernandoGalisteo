@@ -34,7 +34,7 @@ public class PerfilProfesional {
 	private String descripcion;
 
 	@FutureOrPresent
-	private LocalDate fechaDisponible;
+	private List<LocalDate> fechaDisponible = new ArrayList<>();
 
 	@ElementCollection
 	private List<String> categorias = new ArrayList<>();
