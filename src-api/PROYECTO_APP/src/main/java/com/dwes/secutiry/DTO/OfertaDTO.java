@@ -6,9 +6,8 @@ public class OfertaDTO {
 	    private String titulo;
 	    private String descripcion;
 	    private Double precio;
-	    private UsuarioDTO usuario;  // Representación simplificada del usuario
+	    private UsuarioDTO usuario;  
 
-	    // Getters y setters
 	}
 
 

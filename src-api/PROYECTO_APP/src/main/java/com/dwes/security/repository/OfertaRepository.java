@@ -14,6 +14,4 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long> {
 	Page<Oferta> findByUsuarioCreador(Usuario usuario, Pageable pageable);
 	Page<Oferta> findByPrecioLessThanEqual(Double precioMax, Pageable pageable);
 	
-	/* @Query("SELECT p.libro FROM Prestamo p WHERE p.usuario.id = :usuarioId")
-	 List<Libro> findLibrosPrestadosPorUsuario(Integer usuarioId);*/
 }
