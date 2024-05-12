@@ -46,8 +46,13 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.POST, "/api/v1/ofertas/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
                 .requestMatchers(HttpMethod.PUT, "/api/v1/ofertas/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/ofertas/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+                .requestMatchers(HttpMethod.GET, "/api/v1/profesionales/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+                .requestMatchers(HttpMethod.POST, "/api/v1/profesionales/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+                .requestMatchers(HttpMethod.PUT, "/api/v1/profesionales/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/profesionales/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
                 
- 	           	.requestMatchers("/api/v1/users/**").hasAuthority("ROLE_ADMIN")  // Modificado aquí
+                
+ 	           	.requestMatchers("/api/v1/users/**").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .cors(Customizer.withDefaults()) // Configure CORS here with Customizer

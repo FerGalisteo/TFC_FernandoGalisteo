@@ -44,8 +44,9 @@ public class PerfilProfesional {
     @JoinColumn(name = "usuario_id")
     private Usuario usuarioCreador;
 
-	@FutureOrPresent
-	private List<LocalDate> fechaDisponible = new ArrayList<>();
+	// TODO Arreglar tema fechas
+	//@FutureOrPresent
+	//private List<LocalDate> fechaDisponible = new ArrayList<>();
 
 	@ElementCollection
 	@Enumerated(EnumType.STRING)
