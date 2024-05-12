@@ -14,7 +14,7 @@ export class LoginComponent {
   boton() {
   throw new Error('Method not implemented.');
   }
-    user: Usuario = new Usuario('', '');
+    user: Usuario = new Usuario();
     token: string | null = null;
     users: any[] = [];
   
@@ -29,6 +29,11 @@ export class LoginComponent {
           if (typeof window !== 'undefined') {
           localStorage.setItem('token', token);
           }
+          this.authService.recoverUser(token).subscribe({
+            next: (user) => {
+              console.log(user);
+            }
+          })
           Swal.fire('Login correcto', `Token: ${token}`, 'success');
         },
         error: (error) => {

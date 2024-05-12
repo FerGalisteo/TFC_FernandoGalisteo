@@ -10559,3 +10559,27 @@ Java Model Exception: Error in Java Model (code 969): crearPerfil(PerfilProfesio
 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
 !SUBENTRY 1 org.eclipse.jdt.core 4 969 2024-05-11 20:07:57.111
 !MESSAGE crearPerfil(PerfilProfesional, Map<String,MultipartFile>, Usuario) [in PerfilProfesionalService [in [Working copy] PerfilProfesionalService.java [in com.dwes.security.service [in src/main/java [in PROYECTO_APP]]]]] does not exist
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-05-12 18:20:18.061
+!MESSAGE Classpath changed for project: PROYECTO_APP
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-05-12 18:20:19.690
+!MESSAGE Marker id 318 not found.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException(/PROYECTO_APP/pom.xml)[376]: java.lang.IllegalStateException
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:63)
+	at org.eclipse.core.internal.resources.Marker.getAttributes(Marker.java:163)
+	at org.eclipse.lsp4e.operations.diagnostics.LSPDiagnosticsToMarkers.updateMarker(LSPDiagnosticsToMarkers.java:195)
+	at org.eclipse.lsp4e.operations.diagnostics.LSPDiagnosticsToMarkers$1.runInWorkspace(LSPDiagnosticsToMarkers.java:170)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:43)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2024-05-12 18:20:19.697
+!MESSAGE Marker id 318 not found.
+!STACK 0
+java.lang.IllegalStateException
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:63)
+	at org.eclipse.core.internal.resources.Marker.getAttributes(Marker.java:163)
+	at org.eclipse.lsp4e.operations.diagnostics.LSPDiagnosticsToMarkers.updateMarker(LSPDiagnosticsToMarkers.java:195)
+	at org.eclipse.lsp4e.operations.diagnostics.LSPDiagnosticsToMarkers$1.runInWorkspace(LSPDiagnosticsToMarkers.java:170)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:43)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)

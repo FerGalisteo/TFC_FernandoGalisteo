@@ -1,0 +1,16 @@
+<form [formGroup]="registrationForm" (ngSubmit)="registerUser()">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" formControlName="firstName">
+  
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" formControlName="lastName">
+  
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email">
+  
+    <label for="password">Password:</label>
+    <input type="password" id="password" formControlName="password">
+  
+    <button type="submit" [disabled]="!registrationForm.valid">Registrarse</button>
+</form>
+  

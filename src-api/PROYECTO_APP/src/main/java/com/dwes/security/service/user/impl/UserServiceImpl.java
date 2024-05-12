@@ -1,6 +1,7 @@
 package com.dwes.security.service.user.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.dwes.security.dto.response.user.UsuarioResponse;
+import com.dwes.security.entities.Usuario;
 import com.dwes.security.repository.UserRepository;
 import com.dwes.security.service.UserService;
 
@@ -36,5 +38,10 @@ public class UserServiceImpl implements UserService {
 			    .map(usuario -> new UsuarioResponse(usuario.getFirstName(), usuario.getLastName(), usuario.getEmail(), usuario.getRoles().toString()))
 			    .collect(Collectors.toList());
 		 return allUsers;
+	}
+	@Override
+	public Optional<Usuario> buscarByEmail(String email) {
+			
+		return userRepository.findByEmail(email);
 	}
 }
