@@ -4,11 +4,17 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { OfertaFormComponent } from './oferta-form/oferta-form.component';
+import { OfertaListComponent } from './oferta-list/oferta-list.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignUpComponent }
+  { path: 'signup', component: SignUpComponent },
+  { path: 'ofertas', component: OfertaListComponent, canActivate: [AuthGuard] },
+  { path: 'oferta/nueva', component: OfertaFormComponent, canActivate: [AuthGuard] },
+  { path: 'oferta/editar/:id', component: OfertaFormComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/ofertas', pathMatch: 'full' }
 ];
 
 @NgModule({

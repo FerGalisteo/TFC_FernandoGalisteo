@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { OfertaListComponent } from './oferta-list/oferta-list.component';
+import { OfertaFormComponent } from './oferta-form/oferta-form.component';
 
 
 
@@ -18,7 +20,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     AppComponent,
     LoginComponent,
     HomeComponent,
-    SignUpComponent
+    SignUpComponent,
+    OfertaListComponent,
+    OfertaFormComponent
   ],
   imports: [
     BrowserModule,
