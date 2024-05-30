@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { OfertaListComponent } from './oferta-list/oferta-list.component';
 import { OfertaFormComponent } from './oferta-form/oferta-form.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -22,7 +23,8 @@ import { OfertaFormComponent } from './oferta-form/oferta-form.component';
     HomeComponent,
     SignUpComponent,
     OfertaListComponent,
-    OfertaFormComponent
+    OfertaFormComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

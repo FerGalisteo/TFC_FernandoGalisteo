@@ -34,7 +34,8 @@ export class LoginComponent {
               console.log(user);
             }
           })
-          Swal.fire('Login correcto', `Token: ${token}`, 'success');
+          
+          Swal.fire('Login correcto', 'success');
         },
         error: (error) => {
           Swal.fire('Error en la petición', 'No hemos podido conectar', 'error');

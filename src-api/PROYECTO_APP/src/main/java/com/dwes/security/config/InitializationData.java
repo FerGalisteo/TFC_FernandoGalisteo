@@ -1,5 +1,9 @@
 package com.dwes.security.config;
 
+import java.util.Objects;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -10,9 +14,13 @@ import com.dwes.security.entities.Role;
 import com.dwes.security.entities.Usuario;
 import com.dwes.security.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Profile("demo")
 @Component
 public class InitializationData implements CommandLineRunner {
+
+	 Logger logger = LoggerFactory.getLogger(InitializationData.class);
 
     @Autowired
     private UserRepository usuarioRepository;
@@ -21,8 +29,18 @@ public class InitializationData implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
     	
+    	if(Objects.equals(usuarioRepository.findByEmail("admin@example.com"), null)) {
+    		Usuario usuario4 = new Usuario();
+            usuario4.setFirstName("Admin");
+            usuario4.setLastName("Administrador");
+            usuario4.setEmail("admin@example.com");
+            usuario4.setPassword(passwordEncoder.encode("password1234"));
+            usuario4.getRoles().add(Role.ROLE_ADMIN);
+            usuarioRepository.save(usuario4);
+    	}
     	if(usuarioRepository.findByEmail("alice.johnson@example.com") == null) {
     		Usuario usuario1 = new Usuario();
             usuario1.setFirstName("Alice");
@@ -50,6 +68,7 @@ public class InitializationData implements CommandLineRunner {
             usuario3.getRoles().add(Role.ROLE_USER);
             usuarioRepository.save(usuario3);
     	}
+    	
     	
         
     }

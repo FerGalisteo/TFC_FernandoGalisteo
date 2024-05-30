@@ -3,9 +3,10 @@
       <div class="col-12">
         <h2>Ofertas</h2>
         <div class="card-deck">
-          <div class="card" *ngFor="let oferta of ofertas">
+          <div class="card m-2" *ngFor="let oferta of ofertas">
+            <h5 class="card-header">{{ oferta.titulo }}</h5>
             <div class="card-body">
-              <h5 class="card-title">{{ oferta.titulo }}</h5>
+              
               <p class="card-text">{{ oferta.descripcion }}</p>
               <p class="card-text"><small class="text-muted">Precio: {{ oferta.precio }}</small></p>
               <p class="card-text"><small class="text-muted">Fecha de Comienzo: {{ oferta.fechaComienzo | date }}</small></p>

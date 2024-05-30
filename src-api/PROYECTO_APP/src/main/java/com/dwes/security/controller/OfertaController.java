@@ -57,7 +57,6 @@ public class OfertaController {
 	 * @return
 	 */
 	@GetMapping
-	@PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
 	public ResponseEntity<Page<Oferta>> listarTodasLasOfertas(
 	        @RequestParam(defaultValue = "0") int page,
 	        @RequestParam(defaultValue = "10") int size,
