@@ -1,3 +1,9 @@
 export enum LugarDisponible {
-    SEVILLA, HUELVA, CADIZ, CORDOBA, JAEN, GRANADA, ALMERIA
-  }
+  SEVILLA = 'SEVILLA',
+  HUELVA = 'HUELVA',
+  CADIZ = 'CADIZ',
+  CORDOBA = 'CORDOBA',
+  JAEN = 'JAEN',
+  GRANADA = 'GRANADA',
+  ALMERIA = 'ALMERIA'
+}

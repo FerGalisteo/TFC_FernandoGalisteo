@@ -27,7 +27,6 @@ export class OfertaFormComponent implements OnInit {
       titulo: ['', [Validators.required, Validators.maxLength(50)]],
       descripcion: ['', [Validators.maxLength(200)]],
       precio: ['', [Validators.required, Validators.min(0)]],
-      fechaCreacion: ['', Validators.required],
       fechaComienzo: ['', Validators.required],
       lugar: ['', Validators.required]
     });

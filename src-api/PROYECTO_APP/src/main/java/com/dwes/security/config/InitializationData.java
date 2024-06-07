@@ -1,6 +1,7 @@
 package com.dwes.security.config;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,7 @@ import com.dwes.security.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 
-@Profile("demo")
+
 @Component
 public class InitializationData implements CommandLineRunner {
 
@@ -27,12 +28,25 @@ public class InitializationData implements CommandLineRunner {
  
     @Autowired
     private PasswordEncoder passwordEncoder;
+  
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
     	
-    	if(Objects.equals(usuarioRepository.findByEmail("admin@example.com"), null)) {
+    	if(usuarioRepository.findByEmail("admin@admin.com").isEmpty()) {
+    		System.err.println("USUARIO");
+    		
+    		Usuario usuario5 = new Usuario();
+    		usuario5.setFirstName("Admin2");
+    		usuario5.setLastName("Administrador2");
+    		usuario5.setEmail("admin@admin.com");
+    		usuario5.setPassword(passwordEncoder.encode("password1234"));
+    		usuario5.getRoles().add(Role.ROLE_ADMIN);
+            usuarioRepository.save(usuario5);
+    	}
+    	
+    	if(usuarioRepository.findByEmail("admin@example.com").isEmpty()) {
     		Usuario usuario4 = new Usuario();
             usuario4.setFirstName("Admin");
             usuario4.setLastName("Administrador");
@@ -41,7 +55,7 @@ public class InitializationData implements CommandLineRunner {
             usuario4.getRoles().add(Role.ROLE_ADMIN);
             usuarioRepository.save(usuario4);
     	}
-    	if(usuarioRepository.findByEmail("alice.johnson@example.com") == null) {
+    	if(usuarioRepository.findByEmail("alice.johnson@example.com").isEmpty()) {
     		Usuario usuario1 = new Usuario();
             usuario1.setFirstName("Alice");
             usuario1.setLastName("Johnson");
@@ -50,7 +64,7 @@ public class InitializationData implements CommandLineRunner {
             usuario1.getRoles().add(Role.ROLE_USER);
             usuarioRepository.save(usuario1);
     	}
-    	if(usuarioRepository.findByEmail("bob.smith@example.com") == null) {
+    	if(usuarioRepository.findByEmail("bob.smith@example.com").isEmpty()) {
     		Usuario usuario2 = new Usuario();
             usuario2.setFirstName("Bob");
             usuario2.setLastName("Smith");
@@ -59,7 +73,7 @@ public class InitializationData implements CommandLineRunner {
             usuario2.getRoles().add(Role.ROLE_ADMIN);
             usuarioRepository.save(usuario2);
     	}
-    	if(usuarioRepository.findByEmail("carol.davis@example.com") == null) {
+    	if(usuarioRepository.findByEmail("carol.davis@example.com").isEmpty()) {
     		Usuario usuario3 = new Usuario();
             usuario3.setFirstName("Carol");
             usuario3.setLastName("Davis");

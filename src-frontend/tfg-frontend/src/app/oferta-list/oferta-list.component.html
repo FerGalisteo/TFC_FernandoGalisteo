@@ -1,24 +1,29 @@
 <div class="container mt-4">
-    <div class="row">
-      <div class="col-12">
-        <h2>Ofertas</h2>
-        <div class="card-deck">
-          <div class="card m-2" *ngFor="let oferta of ofertas">
-            <h5 class="card-header">{{ oferta.titulo }}</h5>
+  <div class="row">
+    <div class="col-12">
+      <h3>Ofertas</h3>
+      <div class="card-deck">
+        <div class="card m-2" *ngFor="let oferta of ofertas">
+          
+            <h5 class="card-header bg-primary text-light">{{ oferta.titulo }}</h5>
             <div class="card-body">
-              
               <p class="card-text">{{ oferta.descripcion }}</p>
               <p class="card-text"><small class="text-muted">Precio: {{ oferta.precio }}</small></p>
               <p class="card-text"><small class="text-muted">Fecha de Comienzo: {{ oferta.fechaComienzo | date }}</small></p>
               <p class="card-text"><small class="text-muted">Lugar: {{ oferta.lugar }}</small></p>
               
-              <!-- Condicionalmente mostrar los botones -->
-              <button *ngIf="canEdit(oferta)" class="btn btn-primary" (click)="editOferta(oferta)">Editar</button>
-              <button *ngIf="canDelete(oferta)" class="btn btn-danger" (click)="deleteOferta(oferta.id)">Eliminar</button>
+              
             </div>
-          </div>
+          <div class="card-footer d-flex justify-content-around">
+              <button class="btn btn-outline-success" (click)="detailOferta(oferta)">Ver Detalle</button>
+              <button *ngIf="canEdit(oferta)" class="btn btn-info" (click)="editOferta(oferta)">Editar</button>
+              <button *ngIf="canDelete(oferta)" class="btn btn-danger" (click)="deleteOferta(oferta.id)">Eliminar</button>
+              </div>
         </div>
+      </div>
+      <div class="text-center my-4">
+        <button *ngIf="ofertas.length < totalElements" class="btn btn-secondary" (click)="loadMore()">Cargar más</button>
       </div>
     </div>
   </div>
-  
+</div>

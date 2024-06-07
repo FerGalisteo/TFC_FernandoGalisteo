@@ -1,0 +1,46 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-12">
+        <h3 *ngIf="perfilId">Editar Perfil Profesional</h3>
+        <h3 *ngIf="!perfilId">Crear Perfil Profesional</h3>
+        <form [formGroup]="perfilForm" (ngSubmit)="onSubmit()" class="p-4">
+          <div class="mb-3">
+            <label for="titulo" class="form-label">Título</label>
+            <input type="text" id="titulo" formControlName="titulo" class="form-control" 
+                   [class.is-invalid]="perfilForm.get('titulo').invalid && (perfilForm.get('titulo').dirty || perfilForm.get('titulo').touched)">
+            <div *ngIf="perfilForm.get('titulo').invalid && (perfilForm.get('titulo').dirty || perfilForm.get('titulo').touched)" class="invalid-feedback">
+              <div *ngIf="perfilForm.get('titulo').errors?.['required']">El título es obligatorio.</div>
+              <div *ngIf="perfilForm.get('titulo').errors?.['maxlength']">El título no puede tener más de 100 caracteres.</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea id="descripcion" formControlName="descripcion" class="form-control" rows="5"
+                      [class.is-invalid]="perfilForm.get('descripcion').invalid && (perfilForm.get('descripcion').dirty || perfilForm.get('descripcion').touched)"></textarea>
+            <div *ngIf="perfilForm.get('descripcion').invalid && (perfilForm.get('descripcion').dirty || perfilForm.get('descripcion').touched)" class="invalid-feedback">
+              <div *ngIf="perfilForm.get('descripcion').errors?.['required']">La descripción es obligatoria.</div>
+              <div *ngIf="perfilForm.get('descripcion').errors?.['maxlength']">La descripción no puede tener más de 2000 caracteres.</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="categorias" class="form-label">Categorías</label>
+            <select id="categorias" formControlName="categorias" class="form-select" multiple>
+              <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="lugaresDisponibles" class="form-label">Lugares Disponibles</label>
+            <select id="lugaresDisponibles" formControlName="lugaresDisponibles" class="form-select" multiple>
+              <option *ngFor="let lugar of lugaresDisponibles" [value]="lugar">{{ lugar }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="imagenes" class="form-label">Imágenes</label>
+            <input type="file" id="imagenes" (change)="onFileChange($event)" multiple class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

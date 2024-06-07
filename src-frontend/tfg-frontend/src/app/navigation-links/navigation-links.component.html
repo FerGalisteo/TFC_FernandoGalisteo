@@ -1,0 +1,21 @@
+
+<li class="nav-item" *ngIf="!isAuthenticated">
+    <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+  </li>
+  <li class="nav-item" *ngIf="!isAuthenticated">
+    <a class="nav-link" routerLink="/signup" routerLinkActive="active">Register</a>
+  </li>
+  <li class="nav-item" *ngIf="isUserAdmin()">
+    <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin Dashboard</a>
+  </li>
+  <li class="nav-item" *ngIf="isUserUser()">
+    <a class="nav-link" routerLink="/user" routerLinkActive="active">Mi Perfil</a>
+  </li>
+  <li class="nav-item" *ngIf="isAuthenticated">
+      <a class="nav-link" routerLink="/oferta/nueva" routerLinkActive="active">Sube tu Oferta</a>
+    </li>
+  <li class="nav-item" *ngIf="isAuthenticated">
+    <a class="nav-link" href="#" (click)="logout()">Logout</a>
+  </li>
+
+  

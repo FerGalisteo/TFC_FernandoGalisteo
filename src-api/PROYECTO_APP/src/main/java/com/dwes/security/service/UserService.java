@@ -11,5 +11,6 @@ import com.dwes.security.entities.Usuario;
 public interface UserService {
     UserDetailsService userDetailsService();
     List<UsuarioResponse> getAllUsers();
-    Optional<Usuario> buscarByEmail(String username); 
+    Optional<Usuario> buscarByEmail(String username);
+    void deleteUser(String email);
 }

@@ -1,28 +1,37 @@
 <nav class="navbar bg-body-tertiary sticky-top shadow mw-100">
     <div class="container-fluid col-md-9 ">
-      <a class="navbar-brand" href="/home">QuickGig</a>
+      <a class="navbar-brand" href="/home"><img src="../../assets/img/logos/logo_y_texto_negro.jpeg" alt="QuickGig Logo" width="100px" height="42px"></a>
   
       <!-- Nav-pills for large screens -->
       <ul class="nav nav-pills ms-auto d-none d-md-flex justify-content-evenly">
+        
+        <li class="nav-item" *ngIf="isUserAdmin()">
+          <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">Usuarios</a>
+        </li>
+        <li class="nav-item" *ngIf="isUserUser()">
+          <a class="nav-link" routerLink="/user" routerLinkActive="active">Mi Perfil</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/ofertas" routerLinkActive="active">Empleos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/perfiles" routerLinkActive="active">Profesionales</a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated">
+            <a class="nav-link" routerLink="/oferta/nueva" routerLinkActive="active">Sube tu Oferta</a>
+        </li>
+        
+        
         <li class="nav-item" *ngIf="!isAuthenticated">
           <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
         </li>
         <li class="nav-item" *ngIf="!isAuthenticated">
           <a class="nav-link" routerLink="/signup" routerLinkActive="active">Register</a>
         </li>
-        <li class="nav-item" *ngIf="isUserAdmin()">
-          <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin Dashboard</a>
-        </li>
-        <li class="nav-item" *ngIf="isUserUser()">
-          <a class="nav-link" routerLink="/user" routerLinkActive="active">Mi Perfil</a>
-        </li>
         <li class="nav-item" *ngIf="isAuthenticated">
-            <a class="nav-link" routerLink="/oferta/nueva" routerLinkActive="active">Sube tu Oferta</a>
-          </li>
-        <li class="nav-item" *ngIf="isAuthenticated">
-          <a class="nav-link" href="#" (click)="logout()">Logout</a>
+          <a class="nav-link" href="/home" (click)="logout()">Logout</a>
         </li>
-        
       </ul>
   
       <!-- Button for offcanvas menu, only visible on md and below -->
@@ -51,12 +60,13 @@
               <a class="nav-link" routerLink="/user" routerLinkActive="active">Mi Perfil</a>
             </li>
             <li class="nav-item" *ngIf="isAuthenticated">
+                <a class="nav-link" routerLink="/oferta/nueva" routerLinkActive="active">Sube tu Oferta</a>
+              </li>
+            <li class="nav-item" *ngIf="isAuthenticated">
               <a class="nav-link" href="#" (click)="logout()">Logout</a>
             </li>
 
-            <li class="nav-item" *ngIf="isAuthenticated">
-                <a class="nav-link" routerLink="/oferta/nueva" routerLinkActive="active">Sube tu Oferta</a>
-              </li>
+
           </ul>
         </div>
       </div>

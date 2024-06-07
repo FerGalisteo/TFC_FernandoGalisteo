@@ -25,7 +25,7 @@ export class OfertaService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<any>(this.apiUrl, { headers, params });
+    return this.http.get<any>(this.apiUrl, { /*headers,*/ params });
   }
 
   getOfertaById(id: number): Observable<Oferta> {

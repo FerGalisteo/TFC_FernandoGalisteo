@@ -25,7 +25,6 @@ INDEX VERSION 1.134+/Users/fer/Desktop/TFG/TFC_FernandoGalisteo/src-api/.metadat
 1600931960.index
 2451431172.index
 2134755738.index
-1549246236.index
 1081388094.index
 3305946077.index
 1116013278.index

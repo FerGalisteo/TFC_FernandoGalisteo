@@ -45,11 +45,11 @@ public class SecurityConfiguration {
 
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/token/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
- 	            .requestMatchers(HttpMethod.GET, "/api/v1/ofertas/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+ 	            .requestMatchers(HttpMethod.GET, "/api/v1/ofertas/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/ofertas/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
                 .requestMatchers(HttpMethod.PUT, "/api/v1/ofertas/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/ofertas/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
-                .requestMatchers(HttpMethod.GET, "/api/v1/profesionales/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+                .requestMatchers(HttpMethod.GET, "/api/v1/profesionales/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/profesionales/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
                 .requestMatchers(HttpMethod.PUT, "/api/v1/profesionales/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/profesionales/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())

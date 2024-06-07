@@ -12,18 +12,31 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
 public class Usuario implements UserDetails {
 	  private static final long serialVersionUID = 1L;
-	  	@Id
+	  @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
+
+	    @NotBlank(message = "El nombre es obligatorio")
 	    private String firstName;
+
+	    @NotBlank(message = "El apellido es obligatorio")
 	    private String lastName;
+
 	    @Column(unique = true)
+	    @Email(message = "El email debe ser válido")
+	    @NotBlank(message = "El email es obligatorio")
 	    private String email;
+
+	    @NotBlank(message = "La contraseña es obligatoria")
+	    @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
 	    private String password;
 
 	    @ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)

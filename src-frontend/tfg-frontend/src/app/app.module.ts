@@ -13,6 +13,11 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { OfertaListComponent } from './oferta-list/oferta-list.component';
 import { OfertaFormComponent } from './oferta-form/oferta-form.component';
 import { HeaderComponent } from './header/header.component';
+import { OfertaDetailComponent } from './oferta-detail/oferta-detail.component';
+import { PerfilProfesionalListComponent } from './perfil-profesional-list/perfil-profesional-list.component';
+import { PerfilProfesionalFormComponent } from './perfil-profesional-form/perfil-profesional-form.component';
+import { NavigationLinksComponent } from './navigation-links/navigation-links.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 
 
@@ -24,7 +29,12 @@ import { HeaderComponent } from './header/header.component';
     SignUpComponent,
     OfertaListComponent,
     OfertaFormComponent,
-    HeaderComponent
+    HeaderComponent,
+    OfertaDetailComponent,
+    PerfilProfesionalListComponent,
+    PerfilProfesionalFormComponent,
+    NavigationLinksComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

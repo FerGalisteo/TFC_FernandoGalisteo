@@ -1,0 +1,9 @@
+export enum Categorias {
+    VIDEO_EVENTO = 'VIDEO_EVENTO',
+    FOTO_EVENTO = 'FOTO_EVENTO',
+    VIDEO_BODA = 'VIDEO_BODA',
+    FOTO_BODA = 'FOTO_BODA',
+    EDITOR_VIDEO = 'EDITOR_VIDEO',
+    EDITOR_FOTO = 'EDITOR_FOTO'
+  }
+  

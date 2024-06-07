@@ -1,7 +1,7 @@
-<div class="container mt-4">
-    <div class="row">
-      <div class="col-12">
-        <h2>{{ ofertaId ? 'Actualizar Oferta' : 'Crear Oferta' }}</h2>
+<div class="d-flex justify-content-center align-items-center my-5">
+    <div class="card col-10 col-md-6 col-lg-6 col-xl-6">
+      <div class="card-body">
+        <h2 class="card-title text-center">{{ ofertaId ? 'Actualizar Oferta' : 'Crear Oferta' }}</h2>
         <form [formGroup]="ofertaForm" (ngSubmit)="onSubmit()">
           <div class="mb-3">
             <label for="titulo" class="form-label">Título</label>
@@ -33,15 +33,6 @@
           </div>
   
           <div class="mb-3">
-            <label for="fechaCreacion" class="form-label">Fecha de Creación</label>
-            <input type="date" id="fechaCreacion" formControlName="fechaCreacion" class="form-control" 
-                   [class.is-invalid]="ofertaForm.get('fechaCreacion').invalid && (ofertaForm.get('fechaCreacion').dirty || ofertaForm.get('fechaCreacion').touched)">
-            <div *ngIf="ofertaForm.get('fechaCreacion').invalid && (ofertaForm.get('fechaCreacion').dirty || ofertaForm.get('fechaCreacion').touched)" class="invalid-feedback">
-              <div *ngIf="ofertaForm.get('fechaCreacion').errors['required']">La fecha de creación es obligatoria.</div>
-            </div>
-          </div>
-  
-          <div class="mb-3">
             <label for="fechaComienzo" class="form-label">Fecha de Comienzo</label>
             <input type="date" id="fechaComienzo" formControlName="fechaComienzo" class="form-control" 
                    [class.is-invalid]="ofertaForm.get('fechaComienzo').invalid && (ofertaForm.get('fechaComienzo').dirty || ofertaForm.get('fechaComienzo').touched)">
@@ -60,7 +51,6 @@
               <div *ngIf="ofertaForm.get('lugar').errors['required']">El lugar es obligatorio.</div>
             </div>
           </div>
-  
           <button type="submit" class="btn btn-primary">{{ ofertaId ? 'Actualizar' : 'Crear' }} Oferta</button>
         </form>
       </div>

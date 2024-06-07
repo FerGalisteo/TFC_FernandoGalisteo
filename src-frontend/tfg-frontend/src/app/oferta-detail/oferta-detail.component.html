@@ -1,0 +1,16 @@
+<div class="container mt-5">
+    <div *ngIf="oferta" class="card">
+      <div class="card-header ">
+        <h3>{{ oferta.titulo }}</h3>
+      </div>
+      <div class="card-body">
+        <p><strong>Descripción:</strong> {{ oferta.descripcion }}</p>
+        <p><strong>Sueldo: </strong> {{ oferta.precio | currency }}</p>
+        <p><strong>Creado el día:</strong> {{ oferta.fechaCreacion | date }}</p>
+        <p><strong>¿Cuándo? </strong> {{ oferta.fechaComienzo | date }}</p>
+        <p><strong>Contacta con:</strong> {{ oferta.usuarioCreador.email }}</p>
+        <p><strong>Lugar Disponible:</strong> {{ oferta.lugar }}</p>
+      </div>
+    </div>
+  </div>
+  

@@ -1,6 +1,7 @@
 package com.dwes.security.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,33 +11,26 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.dwes.security.entities.PerfilProfesional;
 import com.dwes.security.entities.Role;
 import com.dwes.security.entities.Usuario;
 import com.dwes.security.service.PerfilProfesionalService;
 import com.google.gson.Gson;
 
-
-
 @RestController
 @RequestMapping("/api/v1/profesionales")
 public class PerfilProfesionalController {
 	@Autowired
 	private PerfilProfesionalService perfilProfesionalService;
-	
+
 	@PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USER')")
     public ResponseEntity<?> crearPerfil(@RequestPart("publicacion") String publicacion,
-                                        @RequestParam(required = false) Map<String, MultipartFile> imagenes,
-                                        @AuthenticationPrincipal Usuario usuario) {
+                                         @RequestParam(required = false) Map<String, MultipartFile> imagenes,
+                                         @AuthenticationPrincipal Usuario usuario) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
 		PerfilProfesional perfil;
@@ -44,22 +38,15 @@ public class PerfilProfesionalController {
             perfil = new Gson().fromJson(publicacion, PerfilProfesional.class);
             return ResponseEntity.ok(perfilProfesionalService.crearPerfil(perfil, imagenes, username));
         } catch (IOException e) {
-            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-        
 	}
-	
-	
-	
-	
-	
+
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
-	public void deleteOfertaUser(@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {
+	public void deletePerfil(@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = userDetails.getUsername();
-
 		Set<Role> roles = usuario.getRoles();
 
 		if (roles.contains(Role.ROLE_ADMIN)) {
@@ -67,8 +54,32 @@ public class PerfilProfesionalController {
 		} else {
 			perfilProfesionalService.eliminarPerfil(id, username);
 		}
-
 	}
-	
 
+	@GetMapping
+	public ResponseEntity<List<PerfilProfesional>> listarTodosLosPerfiles() {
+		return ResponseEntity.ok(perfilProfesionalService.listarTodosLosPerfiles());
+	}
+
+	@GetMapping("/usuario/{id}")
+	@PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
+	public ResponseEntity<List<PerfilProfesional>> listarPerfilesPorUsuario(@PathVariable Long id) {
+		return ResponseEntity.ok(perfilProfesionalService.listarPerfilesPorUsuario(id));
+	}
+
+	@PutMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
+	public ResponseEntity<?> actualizarPerfil(@PathVariable Long id, @RequestPart("publicacion") String publicacion,
+                                              @RequestParam(required = false) Map<String, MultipartFile> imagenes,
+                                              @AuthenticationPrincipal Usuario usuario) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+		PerfilProfesional perfilActualizado;
+        try {
+            perfilActualizado = new Gson().fromJson(publicacion, PerfilProfesional.class);
+            return ResponseEntity.ok(perfilProfesionalService.actualizarPerfil(id, perfilActualizado, imagenes, username));
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+	}
 }

@@ -7,17 +7,28 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  private apiUrl = 'http://localhost:8081/api/usuarios/';
+  private apiUrl = 'http://localhost:8085/api/v1/users';
 
   constructor(private http: HttpClient) { }
 
-  getUsers(token:string): Observable<any> {
-
+  getAllUsers(): Observable<any[]> {
+    const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-
-    return this.http.get<any>(this.apiUrl, { headers:headers });
+    return this.http.get<any[]>(this.apiUrl, { headers });
   }
+
+
+  deleteUser(email: string): Observable<void> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.delete<void>(`${this.apiUrl}/delete`, {
+      headers,
+      params: { email }
+    });
+  }
+
 }
