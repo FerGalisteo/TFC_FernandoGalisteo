@@ -1,21 +1,30 @@
 <div class="container mt-4">
     <div class="row">
       <div class="col-12">
-        <h3>Perfiles Profesionales</h3>
+        <h3>Profesionales</h3>
         <div class="card-deck">
-          <div class="card m-2" *ngFor="let perfil of perfiles">
-            <h5 class="card-header">{{ perfil.titulo }}</h5>
+          <div class="card m-2 my-4" *ngFor="let perfil of perfiles" (click)="detailPerfil(perfil.id)">
+            <h5 class="card-header bg-success text-light">{{ perfil.titulo }}</h5>
             <div class="card-body">
               <p class="card-text">{{ perfil.descripcion }}</p>
               <p class="card-text"><small class="text-muted">Categorías: {{ perfil.categorias.join(', ') }}</small></p>
               <p class="card-text"><small class="text-muted">Lugares Disponibles: {{ perfil.lugaresDisponibles.join(', ') }}</small></p>
-              <p class="card-text"><small class="text-muted">Img: {{ perfil.imagenes.at(0) }}</small></p>
-              <button class="btn btn-primary" (click)="editPerfil(perfil.id)">Editar</button>
-              <button class="btn btn-danger" (click)="deletePerfil(perfil.id)">Eliminar</button>
+              <div class="img-thumbnail w-25 h-25" *ngIf="perfil.imagenes.length > 0">
+                <div *ngFor="let imagen of perfil.imagenes">
+                  <img [src]="'data:image/jpeg;base64,' + imagen.datos" [alt]="imagen.nombre" class="img-thumbnail" />
+                </div>
+              </div>
+              <div *ngIf="perfil.imagenes.length === 0">
+                <p>No hay imágenes disponibles.</p>
+              </div>
+              <div class="card-footer d-flex justify-content-around px-1">
+                <button class="btn btn-outline-success" (click)="detailPerfil(perfil.id)"><i class="bi bi-arrow-down-left-circle-fill"></i> Ver Detalle</button>
+                <button class="btn btn-primary" (click)="editPerfil(perfil.id)"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-danger" (click)="deletePerfil(perfil.id)"><i class="bi bi-trash3-fill"></i></button>
+            </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { PerfilProfesional } from '../entities/perfil-profesional';
 
@@ -11,12 +11,29 @@ export class PerfilProfesionalService {
 
   constructor(private http: HttpClient) { }
 
-  getPerfiles(): Observable<PerfilProfesional[]> {
-    return this.http.get<PerfilProfesional[]>(this.apiUrl);
+  getPerfiles(page: number, size: number): Observable<any> {
+    let params = new HttpParams().set('page', page).set('size', size);
+    return this.http.get<any>(this.apiUrl, { params });
   }
 
   getPerfilesPorUsuario(id: number): Observable<PerfilProfesional[]> {
-    return this.http.get<PerfilProfesional[]>(`${this.apiUrl}/usuario/${id}`);
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<PerfilProfesional[]>(`${this.apiUrl}/usuario/${id}`, { headers });
+  }
+
+  getPerfilById(id: number): Observable<PerfilProfesional[]> {
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<PerfilProfesional[]>(`${this.apiUrl}/${id}`, { headers });
   }
 
   createPerfil(perfil: PerfilProfesional, imagenes: File[]): Observable<PerfilProfesional> {
@@ -31,7 +48,8 @@ export class PerfilProfesionalService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.post<PerfilProfesional>(this.apiUrl, formData, { headers });
+    return this.http.post<PerfilProfesional>(this.apiUrl, formData, { headers }).pipe(
+      catchError(this.handleError));
   }
 
   updatePerfil(id: number, perfil: PerfilProfesional, imagenes: File[]): Observable<PerfilProfesional> {
@@ -40,7 +58,13 @@ export class PerfilProfesionalService {
     imagenes.forEach((imagen, index) => {
       formData.append(`imagen${index}`, imagen);
     });
-    return this.http.put<PerfilProfesional>(`${this.apiUrl}/${id}`, formData);
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put<PerfilProfesional>(`${this.apiUrl}/${id}`, formData, { headers }).pipe(
+      catchError(this.handleError));
   }
 
   deletePerfil(id: number): Observable<void> {

@@ -1,7 +1,10 @@
 package com.dwes.security.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -41,6 +44,10 @@ public class Oferta {
     private LocalDate fechaComienzo;
     @Enumerated(EnumType.STRING)
     private LugarDisponible lugar;
+    
+    @ElementCollection
+	@Enumerated(EnumType.STRING)
+	private List<Categorias> categorias = new ArrayList<>();
     
     
 	public Long getId() {
@@ -90,6 +97,12 @@ public class Oferta {
 	}
 	public void setLugar(LugarDisponible lugar) {
 		this.lugar = lugar;
+	}
+	public List<Categorias> getCategorias() {
+		return categorias;
+	}
+	public void setCategorias(List<Categorias> categorias) {
+		this.categorias = categorias;
 	}
     
     

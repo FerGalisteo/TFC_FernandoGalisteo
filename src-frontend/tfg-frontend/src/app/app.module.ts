@@ -18,6 +18,9 @@ import { PerfilProfesionalListComponent } from './perfil-profesional-list/perfil
 import { PerfilProfesionalFormComponent } from './perfil-profesional-form/perfil-profesional-form.component';
 import { NavigationLinksComponent } from './navigation-links/navigation-links.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { OfertaVistaComponent } from './oferta-vista/oferta-vista.component';
+import { PerfilProfesionalDetailComponent } from './perfil-profesional-detail/perfil-profesional-detail.component';
+import { PerfilProfesionalVistaComponent } from './perfil-profesional-vista/perfil-profesional-vista.component';
 
 
 
@@ -34,7 +37,10 @@ import { UserListComponent } from './user-list/user-list.component';
     PerfilProfesionalListComponent,
     PerfilProfesionalFormComponent,
     NavigationLinksComponent,
-    UserListComponent
+    UserListComponent,
+    OfertaVistaComponent,
+    PerfilProfesionalDetailComponent,
+    PerfilProfesionalVistaComponent
   ],
   imports: [
     BrowserModule,

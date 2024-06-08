@@ -1,0 +1,26 @@
+<div class="container mt-4" *ngIf="perfil">
+    <div class="row">
+      <div class="col-12">
+        <h3>{{ perfil.titulo }}</h3>
+        <p>{{ perfil.descripcion }}</p>
+        <h5>Categorías</h5>
+        <ul>
+          <li *ngFor="let categoria of perfil.categorias">{{ categoria }}</li>
+        </ul>
+        <h5>Lugares Disponibles</h5>
+        <ul>
+          <li *ngFor="let lugar of perfil.lugaresDisponibles">{{ lugar }}</li>
+        </ul>
+        <h5>Imágenes</h5>
+        <div *ngIf="perfil.imagenes.length > 0">
+          <div *ngFor="let imagen of perfil.imagenes">
+            <img [src]="'data:image/jpeg;base64,' + imagen.datos" [alt]="imagen.nombre" class="img-thumbnail" />
+          </div>
+        </div>
+        <div *ngIf="perfil.imagenes.length === 0">
+          <p>No hay imágenes disponibles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

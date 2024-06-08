@@ -18,6 +18,7 @@ export class PerfilProfesionalFormComponent implements OnInit {
   lugaresDisponibles = Object.values(LugarDisponible);
   categorias = Object.values(Categorias); 
   imagenes: File[] = [];
+  perfil: PerfilProfesional;
 
   constructor(
     private fb: FormBuilder,

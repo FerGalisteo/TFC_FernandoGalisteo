@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dwes.security.entities.Imagen;
 import com.dwes.security.entities.PerfilProfesional;
 import com.dwes.security.entities.Usuario;
+import com.dwes.security.error.exception.PerfilProfesionalNotFoundException;
 import com.dwes.security.repository.ImagenRepository;
 import com.dwes.security.repository.PerfilProfesionalRepository;
 import com.dwes.security.repository.UserRepository;
@@ -67,8 +70,8 @@ public class PerfilProfesionalServiceImpl implements PerfilProfesionalService {
 	}
 
 	@Override
-	public List<PerfilProfesional> listarTodosLosPerfiles() {
-		return perfilRepository.findAll();
+	public Page<PerfilProfesional> listarTodosLosPerfiles(Pageable pageable) {
+		return perfilRepository.findAll(pageable);
 	}
 
 	@Override
@@ -76,6 +79,13 @@ public class PerfilProfesionalServiceImpl implements PerfilProfesionalService {
 		Usuario usuario = usuarioRepositorio.findById(id)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con id: " + id));
 		return perfilRepository.findByUsuarioCreador(usuario);
+	}
+	
+	@Override
+	public PerfilProfesional listarPerfilPorId(Long id) {
+		PerfilProfesional perfil = perfilRepository.findById(id)
+				.orElseThrow(() -> new PerfilProfesionalNotFoundException("Perfil no encontrado con id: " + id));
+		return perfilRepository.findById(id).orElseThrow(() -> new PerfilProfesionalNotFoundException("Perfil no encontrado"));
 	}
 
 	@Override

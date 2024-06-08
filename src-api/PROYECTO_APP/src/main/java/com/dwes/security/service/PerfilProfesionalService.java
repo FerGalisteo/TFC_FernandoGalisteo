@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dwes.security.entities.PerfilProfesional;
@@ -17,11 +19,13 @@ public interface PerfilProfesionalService {
 
 	void eliminarPerfil(Long id, String username);
 
-	List<PerfilProfesional> listarTodosLosPerfiles();
+	Page<PerfilProfesional> listarTodosLosPerfiles(Pageable pageable);
 
 	List<PerfilProfesional> listarPerfilesPorUsuario(Long id);
 
 	PerfilProfesional actualizarPerfil(Long id, PerfilProfesional perfilActualizado,
 			Map<String, MultipartFile> imagenes, String username) throws IOException;
+
+	PerfilProfesional listarPerfilPorId(Long id);
 
 }

@@ -91,4 +91,12 @@ export class OfertaListComponent implements OnInit {
       this.totalElements = data.totalElements;
     });
   }
+
+  truncateDescription(description: string, wordLimit: number): string {
+    const words = description.split(' ');
+    if (words.length <= wordLimit) {
+      return description;
+    }
+    return words.slice(0, wordLimit).join(' ') + '...';
+  }
 }

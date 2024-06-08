@@ -10,20 +10,23 @@ import { OfertaDetailComponent } from './oferta-detail/oferta-detail.component';
 import { PerfilProfesionalListComponent } from './perfil-profesional-list/perfil-profesional-list.component';
 import { PerfilProfesionalFormComponent } from './perfil-profesional-form/perfil-profesional-form.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { OfertaVistaComponent } from './oferta-vista/oferta-vista.component';
+import { PerfilProfesionalDetailComponent } from './perfil-profesional-detail/perfil-profesional-detail.component';
+import { PerfilProfesionalVistaComponent } from './perfil-profesional-vista/perfil-profesional-vista.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
-  { path: 'ofertas', component: OfertaListComponent, canActivate: [AuthGuard] },
+  { path: 'ofertas', component: OfertaVistaComponent },
   { path: 'oferta/nueva', component: OfertaFormComponent, canActivate: [AuthGuard] },
   { path: 'oferta/editar/:id', component: OfertaFormComponent, canActivate: [AuthGuard] },
   { path: 'oferta/:id', component: OfertaDetailComponent, canActivate: [AuthGuard] },
-  { path: 'perfiles', component: PerfilProfesionalListComponent },
+  { path: 'perfiles', component: PerfilProfesionalVistaComponent },
   { path: 'perfiles/crear', component: PerfilProfesionalFormComponent, canActivate: [AuthGuard] },
   { path: 'perfiles/editar/:id', component: PerfilProfesionalFormComponent, canActivate: [AuthGuard] },
   { path: 'admin/users', component: UserListComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/ofertas', pathMatch: 'full' }
+  { path: 'perfil-profesional/:id', component: PerfilProfesionalDetailComponent },
 ];
 
 @NgModule({

@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -57,14 +60,25 @@ public class PerfilProfesionalController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<PerfilProfesional>> listarTodosLosPerfiles() {
-		return ResponseEntity.ok(perfilProfesionalService.listarTodosLosPerfiles());
-	}
+    public ResponseEntity<Page<PerfilProfesional>> listarTodosLosPerfiles(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<PerfilProfesional> perfiles = perfilProfesionalService.listarTodosLosPerfiles(pageable);
+        return ResponseEntity.ok(perfiles);
+    }
+
 
 	@GetMapping("/usuario/{id}")
 	@PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<PerfilProfesional>> listarPerfilesPorUsuario(@PathVariable Long id) {
 		return ResponseEntity.ok(perfilProfesionalService.listarPerfilesPorUsuario(id));
+	}
+	
+	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
+	public ResponseEntity<PerfilProfesional> listarPerfilPorId(@PathVariable Long id) {
+		return ResponseEntity.ok(perfilProfesionalService.listarPerfilPorId(id));
 	}
 
 	@PutMapping("/{id}")

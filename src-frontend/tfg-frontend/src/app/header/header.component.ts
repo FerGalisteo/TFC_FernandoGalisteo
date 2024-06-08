@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+
   isAuthenticated = false;
   isAdmin = false;
   isUser = false;
@@ -41,6 +42,18 @@ export class HeaderComponent implements OnInit {
   }
   isUserUser(): boolean{
     return this.authService.hasRole('ROLE_USER')
+  }
+  
+  closeOffcanvas(): void {
+    const offcanvasElement = document.getElementById('offcanvasNavbar');
+    if (offcanvasElement) {
+      offcanvasElement.classList.remove('show');
+      const backdrop = document.querySelector('.offcanvas-backdrop');
+      if (backdrop) {
+        backdrop.remove();
+      }
+      document.body.classList.remove('offcanvas-open');
+    }
   }
 }
 

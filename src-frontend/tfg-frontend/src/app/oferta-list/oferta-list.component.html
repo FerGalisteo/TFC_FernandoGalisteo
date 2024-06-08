@@ -1,24 +1,22 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-12">
-      <h3>Ofertas</h3>
+      <h3>Empleos</h3>
       <div class="card-deck">
-        <div class="card m-2" *ngFor="let oferta of ofertas">
+        <div class="card m-2 my-4" *ngFor="let oferta of ofertas" (click)="detailOferta(oferta)">
           
             <h5 class="card-header bg-primary text-light">{{ oferta.titulo }}</h5>
             <div class="card-body">
-              <p class="card-text">{{ oferta.descripcion }}</p>
-              <p class="card-text"><small class="text-muted">Precio: {{ oferta.precio }}</small></p>
-              <p class="card-text"><small class="text-muted">Fecha de Comienzo: {{ oferta.fechaComienzo | date }}</small></p>
-              <p class="card-text"><small class="text-muted">Lugar: {{ oferta.lugar }}</small></p>
-              
-              
+              <p class="card-text">{{ truncateDescription(oferta.descripcion, 6) }}</p>
+              <p class="card-text"><small class="text-muted">Sueldo: {{ oferta.precio }}€</small></p>
+              <p class="card-text"><small class="text-muted">Fecha: {{ oferta.fechaComienzo | date }}</small></p>
+              <p class="card-text"><small class="text-muted">En {{ oferta.lugar }}</small></p>
             </div>
-          <div class="card-footer d-flex justify-content-around">
-              <button class="btn btn-outline-success" (click)="detailOferta(oferta)">Ver Detalle</button>
-              <button *ngIf="canEdit(oferta)" class="btn btn-info" (click)="editOferta(oferta)">Editar</button>
-              <button *ngIf="canDelete(oferta)" class="btn btn-danger" (click)="deleteOferta(oferta.id)">Eliminar</button>
-              </div>
+          <div class="card-footer d-flex justify-content-around px-1">
+              <button class="btn btn-outline-success" (click)="detailOferta(oferta)"><i class="bi bi-arrow-down-left-circle-fill"></i> Detalles</button>
+              <button *ngIf="canEdit(oferta)" class="btn btn-info" (click)="editOferta(oferta)"><i class="bi bi-pencil-square"></i></button>
+              <button *ngIf="canDelete(oferta)" class="btn btn-danger" (click)="deleteOferta(oferta.id)"><i class="bi bi-trash3-fill"></i></button>
+          </div>
         </div>
       </div>
       <div class="text-center my-4">
