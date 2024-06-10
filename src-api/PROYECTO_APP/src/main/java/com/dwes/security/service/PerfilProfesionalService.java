@@ -21,11 +21,13 @@ public interface PerfilProfesionalService {
 
 	Page<PerfilProfesional> listarTodosLosPerfiles(Pageable pageable);
 
-	List<PerfilProfesional> listarPerfilesPorUsuario(Long id);
+	PerfilProfesional listarPerfilesPorUsuario(Long id);
 
 	PerfilProfesional actualizarPerfil(Long id, PerfilProfesional perfilActualizado,
 			Map<String, MultipartFile> imagenes, String username) throws IOException;
 
 	PerfilProfesional listarPerfilPorId(Long id);
+
+	List<PerfilProfesional> getAllPerfiles();
 
 }

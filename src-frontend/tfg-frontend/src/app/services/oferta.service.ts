@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Oferta } from '../entities/oferta'; // Asegúrate de tener una interfaz Oferta
+import { Oferta } from '../entities/oferta'; 
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +20,23 @@ export class OfertaService {
       params = params.set('precioMax', precioMax.toString());
     }
 
-    const token = localStorage.getItem('token'); // O el método que uses para almacenar el token
+    const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
     return this.http.get<any>(this.apiUrl, { /*headers,*/ params });
+  }
+
+  getAllOfertas(): Observable<Oferta[]> {
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<Oferta[]>(`${this.apiUrl}/all`).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getOfertaById(id: number): Observable<Oferta> {
@@ -40,7 +51,7 @@ export class OfertaService {
   }
 
   createOferta(oferta: Oferta): Observable<void> {
-    const token = localStorage.getItem('token'); // O el método que uses para almacenar el token
+    const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
@@ -70,6 +81,24 @@ export class OfertaService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers }).pipe(
       catchError(this.handleError)
     );
+  }
+
+  addCandidato(ofertaId: number): Observable<void> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.post<void>(`${this.apiUrl}/addCandidato/${ofertaId}`, {}, { headers });
+  }
+
+  removeCandidato(ofertaId: number): Observable<void> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.delete<void>(`${this.apiUrl}/removeCandidato/${ofertaId}`, { headers });
   }
 
   private handleError(error: HttpErrorResponse) {

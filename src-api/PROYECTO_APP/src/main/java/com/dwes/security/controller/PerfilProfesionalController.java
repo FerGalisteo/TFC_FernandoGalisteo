@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dwes.security.entities.Oferta;
 import com.dwes.security.entities.PerfilProfesional;
 import com.dwes.security.entities.Role;
 import com.dwes.security.entities.Usuario;
@@ -67,14 +68,20 @@ public class PerfilProfesionalController {
         Page<PerfilProfesional> perfiles = perfilProfesionalService.listarTodosLosPerfiles(pageable);
         return ResponseEntity.ok(perfiles);
     }
+	
+	@GetMapping("/all")
+    public ResponseEntity<List<PerfilProfesional>> getAllPerfiles() {
+        List<PerfilProfesional> perfiles = perfilProfesionalService.getAllPerfiles();
+        return ResponseEntity.ok(perfiles);
+    }
 
-
+/*
 	@GetMapping("/usuario/{id}")
 	@PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<PerfilProfesional>> listarPerfilesPorUsuario(@PathVariable Long id) {
 		return ResponseEntity.ok(perfilProfesionalService.listarPerfilesPorUsuario(id));
 	}
-	
+	*/
 	@GetMapping("/{id}")
 	@PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
 	public ResponseEntity<PerfilProfesional> listarPerfilPorId(@PathVariable Long id) {

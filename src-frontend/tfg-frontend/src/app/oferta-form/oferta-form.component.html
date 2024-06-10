@@ -40,6 +40,17 @@
               <div *ngIf="ofertaForm.get('fechaComienzo').errors['required']">La fecha de comienzo es obligatoria.</div>
             </div>
           </div>
+
+          <div class="mb-3">
+            <label for="categoria" class="form-label">Categoría</label>
+            <select id="categoria" formControlName="categoria" class="form-select" 
+                    [class.is-invalid]="ofertaForm.get('categoria').invalid && (ofertaForm.get('categoria').dirty || ofertaForm.get('categoria').touched)">
+              <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+            </select>
+            <div *ngIf="ofertaForm.get('categoria').invalid && (ofertaForm.get('categoria').dirty || ofertaForm.get('categoria').touched)" class="invalid-feedback">
+              <div *ngIf="ofertaForm.get('categoria').errors['required']">La categoría es obligatoria.</div>
+            </div>
+          </div>
   
           <div class="mb-3">
             <label for="lugar" class="form-label">Lugar</label>

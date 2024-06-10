@@ -1,7 +1,9 @@
 package com.dwes.security.entities;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -45,6 +47,11 @@ public class Usuario implements UserDetails {
 	    @Column(name ="RolesUsuario")
 	    private Set<Role> roles = new HashSet<>();
 
+	    @OneToMany(mappedBy = "usuarioCreador", cascade = CascadeType.ALL, orphanRemoval = true)
+	    private List<Oferta> ofertas = new ArrayList<>();
+
+	    @OneToOne(mappedBy = "usuarioCreador", cascade = CascadeType.ALL, orphanRemoval = true)
+	    private PerfilProfesional perfilProfesional;
 
 	    @Transactional
 	    @Override

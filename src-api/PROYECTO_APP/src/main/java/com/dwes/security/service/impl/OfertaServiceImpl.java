@@ -1,6 +1,8 @@
 package com.dwes.security.service.impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,10 +11,14 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.dwes.security.entities.Categorias;
+import com.dwes.security.entities.LugarDisponible;
 import com.dwes.security.entities.Oferta;
+import com.dwes.security.entities.PerfilProfesional;
 import com.dwes.security.entities.Usuario;
 import com.dwes.security.error.exception.OfertaNotFoundException;
 import com.dwes.security.repository.OfertaRepository;
+import com.dwes.security.repository.PerfilProfesionalRepository;
 import com.dwes.security.repository.UserRepository;
 import com.dwes.security.service.OfertaService;
 
@@ -21,6 +27,9 @@ public class OfertaServiceImpl implements OfertaService {
 
 	@Autowired
 	private OfertaRepository ofertaRepository;
+	
+	@Autowired
+	private PerfilProfesionalRepository perfilRepository;
 
 
 
@@ -89,6 +98,7 @@ public class OfertaServiceImpl implements OfertaService {
 		ofertaNueva.setPrecio(oferta.getPrecio());
 		ofertaNueva.setDescripcion(oferta.getDescripcion());
 		ofertaNueva.setFechaComienzo(oferta.getFechaComienzo());
+		ofertaNueva.setCategorias(oferta.getCategorias());
 		ofertaNueva.setLugar(oferta.getLugar());
 		return ofertaRepository.save(ofertaNueva);
 	}
@@ -105,6 +115,7 @@ public class OfertaServiceImpl implements OfertaService {
 		ofertaNueva.setPrecio(oferta.getPrecio());
 		ofertaNueva.setDescripcion(oferta.getDescripcion());
 		ofertaNueva.setFechaComienzo(oferta.getFechaComienzo());
+		ofertaNueva.setCategorias(oferta.getCategorias());
 		ofertaNueva.setLugar(oferta.getLugar());
 		return ofertaRepository.save(ofertaNueva);
 	}
@@ -170,5 +181,61 @@ public class OfertaServiceImpl implements OfertaService {
 			return ofertaRepository.findAll(pageable);
 		}
 	}
+	
+	
+	
+	@Override
+	public void addCandidato(Long ofertaId, String email) throws Exception {
+		
+		Oferta oferta = ofertaRepository.findById(ofertaId)
+                .orElseThrow(() -> new IllegalArgumentException("Oferta no encontrada con ID: " + ofertaId));
+		Usuario usuario = usuarioRepositorio.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con email: " + email));
+		
+		PerfilProfesional perfil = perfilRepository.findByUsuarioCreador(usuario);
+		
+		if (oferta.getCandidatos() == null) {
+			oferta.setCandidatos(new ArrayList<>());
+		}
+		
+		if (oferta.getCandidatos().contains(perfil)) {
+            throw new IllegalArgumentException("El usuario ya es candidato de esta oferta");
+        }
+		
+		oferta.getCandidatos().add(perfil);
+	        ofertaRepository.save(oferta);
+		
+	}
+	
+	@Override
+	public void removeCandidato(Long ofertaId, String email) throws Exception {
+		
+		Oferta oferta = ofertaRepository.findById(ofertaId)
+                .orElseThrow(() -> new IllegalArgumentException("Oferta no encontrada con ID: " + ofertaId));
+		Usuario usuario = usuarioRepositorio.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con email: " + email));
+		
+		PerfilProfesional perfil = perfilRepository.findByUsuarioCreador(usuario);
+		
+		if (oferta.getCandidatos() == null) {
+			oferta.setCandidatos(new ArrayList<>());
+		}
+		
+		if (!oferta.getCandidatos().contains(perfil)) {
+            throw new IllegalArgumentException("El usuario no es candidato de esta oferta");
+        }
+		
+		oferta.getCandidatos().remove(perfil);
+	        ofertaRepository.save(oferta);
+		
+	}
+	
+	public Page<Oferta> findByCategoriaAndLugar(Categorias categoria, LugarDisponible lugar, Pageable pageable) {
+        return ofertaRepository.findByCategoriaAndLugar(categoria, lugar, pageable);
+    }
+	
+	public List<Oferta> getAllOfertas() {
+        return ofertaRepository.findAll();
+    }
 
 }

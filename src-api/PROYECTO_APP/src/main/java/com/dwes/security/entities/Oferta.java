@@ -12,6 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -37,6 +39,11 @@ public class Oferta {
 	@ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuarioCreador;
+	
+	@ManyToMany
+	@JoinTable(name = "oferta_candidato", joinColumns = @JoinColumn(name = "oferta_id", referencedColumnName="id"),
+	inverseJoinColumns = @JoinColumn(name = "perfil_id", referencedColumnName="id"))
+	private List<PerfilProfesional> candidatos;
 	
 	@PastOrPresent
     private LocalDate fechaCreacion;
@@ -103,6 +110,12 @@ public class Oferta {
 	}
 	public void setCategorias(List<Categorias> categorias) {
 		this.categorias = categorias;
+	}
+	public List<PerfilProfesional> getCandidatos() {
+		return candidatos;
+	}
+	public void setCandidatos(List<PerfilProfesional> candidatos) {
+		this.candidatos = candidatos;
 	}
     
     

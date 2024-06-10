@@ -1,5 +1,6 @@
 package com.dwes.security.controller;
 
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dwes.security.entities.Categorias;
+import com.dwes.security.entities.LugarDisponible;
 import com.dwes.security.entities.Oferta;
 import com.dwes.security.entities.Role;
 import com.dwes.security.entities.Usuario;
@@ -137,6 +140,34 @@ public class OfertaController {
 		}
 
 	}
+	
+	@PostMapping("/addCandidato/{ofertaId}")
+	@PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
+	public ResponseEntity<Void> addCandidato(@PathVariable Long ofertaId, @AuthenticationPrincipal Usuario usuario){
+		try {
+			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String username = userDetails.getUsername();
+			
+			ofertaService.addCandidato(ofertaId, username);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@DeleteMapping("/removeCandidato/{ofertaId}")
+	@PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
+	public ResponseEntity<Void> removeCandidato(@PathVariable Long ofertaId, @AuthenticationPrincipal Usuario usuario){
+		try {
+			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String username = userDetails.getUsername();
+			
+			ofertaService.removeCandidato(ofertaId, username);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
 	/**
 	 * Endpoint para eliminar una oferta. El método al igual que el de actualizar comprueba la identidad del usuario que realiza la petición.
@@ -160,5 +191,23 @@ public class OfertaController {
 		}
 
 	}
+	
+	@GetMapping("/all")
+    public ResponseEntity<List<Oferta>> getAllOfertas() {
+        List<Oferta> ofertas = ofertaService.getAllOfertas();
+        return ResponseEntity.ok(ofertas);
+    }
+	
+	
+	//FILTRADOS
+	
+	@GetMapping("/filter")
+    public ResponseEntity<Page<Oferta>> getOfertasFiltradas(
+            @RequestParam(required = false) Categorias categoria,
+            @RequestParam(required = false) LugarDisponible lugar,
+            Pageable pageable) {
+        return ResponseEntity.ok(ofertaService.findByCategoriaAndLugar(categoria, lugar, pageable));
+    }
+	
 	
 }

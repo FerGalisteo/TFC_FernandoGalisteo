@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dwes.security.entities.Imagen;
+import com.dwes.security.entities.Oferta;
 import com.dwes.security.entities.PerfilProfesional;
 import com.dwes.security.entities.Usuario;
 import com.dwes.security.error.exception.PerfilProfesionalNotFoundException;
@@ -73,9 +74,13 @@ public class PerfilProfesionalServiceImpl implements PerfilProfesionalService {
 	public Page<PerfilProfesional> listarTodosLosPerfiles(Pageable pageable) {
 		return perfilRepository.findAll(pageable);
 	}
+	@Override
+	public List<PerfilProfesional> getAllPerfiles() {
+        return perfilRepository.findAll();
+    }
 
 	@Override
-	public List<PerfilProfesional> listarPerfilesPorUsuario(Long id) {
+	public PerfilProfesional listarPerfilesPorUsuario(Long id) {
 		Usuario usuario = usuarioRepositorio.findById(id)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con id: " + id));
 		return perfilRepository.findByUsuarioCreador(usuario);

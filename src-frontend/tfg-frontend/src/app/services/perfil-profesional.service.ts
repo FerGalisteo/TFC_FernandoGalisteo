@@ -16,6 +16,17 @@ export class PerfilProfesionalService {
     return this.http.get<any>(this.apiUrl, { params });
   }
 
+  getAllPerfiles(): Observable<PerfilProfesional[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<PerfilProfesional[]>(`${this.apiUrl}/all`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   getPerfilesPorUsuario(id: number): Observable<PerfilProfesional[]> {
 
     const token = localStorage.getItem('token');

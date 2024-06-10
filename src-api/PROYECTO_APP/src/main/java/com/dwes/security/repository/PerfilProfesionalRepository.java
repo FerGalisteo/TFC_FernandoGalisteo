@@ -9,7 +9,8 @@ import com.dwes.security.entities.Usuario;
 
 public interface PerfilProfesionalRepository extends JpaRepository<PerfilProfesional, Long>{
 
-	List<PerfilProfesional> findByUsuarioCreador(Usuario usuario);
+
+	PerfilProfesional findByUsuarioCreador(Usuario usuario);
 	
 
 }

@@ -1,11 +1,15 @@
 .nav-link {
-    background-color: #f8f9fa;
+
     transition: background-color 0.3s, color 0.3s;
-  
+    color: white;
     &:hover, &.active {
-      background-color: #007bff;
+      background-color: #ff8c00;
       color: white;
     }
+  }
+
+  .navbar-toggler{
+    background-color: #ff8c00;
   }
 
   .offcanvas-navlink{
@@ -13,6 +17,10 @@
     border-radius: 3px;
   }
   
+  .btn-close{
+    background-color: #ff8c00;
+  }
+
   .offcanvas-body {
     display: flex;
     flex-direction: column;

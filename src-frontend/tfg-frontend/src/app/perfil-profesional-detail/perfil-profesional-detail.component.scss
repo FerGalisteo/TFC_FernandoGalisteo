@@ -1,0 +1,58 @@
+.container {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+    .bg-dark {
+      padding: 1rem;
+    }
+  
+    h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+  
+    .lead {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+  
+    .text-secondary {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    .list-group-item {
+      background-color: transparent;
+      border: none;
+      padding-left: 0;
+    }
+  
+    .img-fluid {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      transition: transform 0.3s;
+  
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  
+    .encauzado-img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+  
+    .row {
+      margin: 0 -0.5rem;
+  
+      .col-md-4 {
+        padding: 0 0.5rem;
+      }
+    }
+  }
+  

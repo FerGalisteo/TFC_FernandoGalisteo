@@ -10,6 +10,13 @@
         <p><strong>¿Cuándo? </strong> {{ oferta.fechaComienzo | date }}</p>
         <p><strong>Contacta con:</strong> {{ oferta.usuarioCreador.email }}</p>
         <p><strong>Lugar Disponible:</strong> {{ oferta.lugar }}</p>
+
+        <div *ngIf="isCandidato">
+            <button class="btn btn-warning" (click)="removeCandidato()">Desapuntarse</button>
+          </div>
+          <div *ngIf="!isCandidato">
+            <button class="btn btn-primary" (click)="addCandidato()">Apuntarse</button>
+          </div>
       </div>
     </div>
   </div>

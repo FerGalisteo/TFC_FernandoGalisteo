@@ -1,21 +1,41 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-12">
-      <h3>Empleos</h3>
+      <h3>Ofertas</h3>
+      <form [formGroup]="filterForm" (ngSubmit)="onFilterChange()">
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="categoria">Categoría</label>
+            <select id="categoria" formControlName="categoria" class="form-select">
+              <option value="">Todas</option>
+              <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="lugar">Lugar</label>
+            <select id="lugar" formControlName="lugar" class="form-select">
+              <option value="">Todos</option>
+              <option *ngFor="let lugar of lugares" [value]="lugar">{{ lugar }}</option>
+            </select>
+          </div>
+          <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Aplicar Filtros</button>
+          </div>
+        </div>
+      </form>
       <div class="card-deck">
-        <div class="card m-2 my-4" *ngFor="let oferta of ofertas" (click)="detailOferta(oferta)">
-          
-            <h5 class="card-header bg-primary text-light">{{ oferta.titulo }}</h5>
-            <div class="card-body">
-              <p class="card-text">{{ truncateDescription(oferta.descripcion, 6) }}</p>
-              <p class="card-text"><small class="text-muted">Sueldo: {{ oferta.precio }}€</small></p>
-              <p class="card-text"><small class="text-muted">Fecha: {{ oferta.fechaComienzo | date }}</small></p>
-              <p class="card-text"><small class="text-muted">En {{ oferta.lugar }}</small></p>
-            </div>
+        <div class="card m-2 my-4" *ngFor="let oferta of ofertas">
+          <h5 class="card-header bg-dark text-light">{{ oferta.titulo }}</h5>
+          <div class="card-body">
+            <p class="card-text">{{ truncateDescription(oferta.descripcion, 6) }}</p>
+            <p class="card-text"><small class="text-muted">Sueldo: {{ oferta.precio }}€</small></p>
+            <p class="card-text"><small class="text-muted">Fecha: {{ oferta.fechaComienzo | date }}</small></p>
+            <p class="card-text"><small class="text-muted">En {{ oferta.lugar }}</small></p>
+          </div>
           <div class="card-footer d-flex justify-content-around px-1">
-              <button class="btn btn-outline-success" (click)="detailOferta(oferta)"><i class="bi bi-arrow-down-left-circle-fill"></i> Detalles</button>
-              <button *ngIf="canEdit(oferta)" class="btn btn-info" (click)="editOferta(oferta)"><i class="bi bi-pencil-square"></i></button>
-              <button *ngIf="canDelete(oferta)" class="btn btn-danger" (click)="deleteOferta(oferta.id)"><i class="bi bi-trash3-fill"></i></button>
+            <button class="btn btn-outline-success" (click)="detailOferta(oferta)"><i class="bi bi-arrow-down-left-circle-fill"></i> Detalles</button>
+            <button *ngIf="canEdit(oferta)" class="btn btn-info" (click)="editOferta(oferta)"><i class="bi bi-pencil-square"></i></button>
+            <button *ngIf="canDelete(oferta)" class="btn btn-danger" (click)="deleteOferta(oferta.id)"><i class="bi bi-trash3-fill"></i></button>
           </div>
         </div>
       </div>

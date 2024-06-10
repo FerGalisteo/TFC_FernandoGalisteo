@@ -23,10 +23,10 @@ const routes: Routes = [
   { path: 'oferta/editar/:id', component: OfertaFormComponent, canActivate: [AuthGuard] },
   { path: 'oferta/:id', component: OfertaDetailComponent, canActivate: [AuthGuard] },
   { path: 'perfiles', component: PerfilProfesionalVistaComponent },
-  { path: 'perfiles/crear', component: PerfilProfesionalFormComponent, canActivate: [AuthGuard] },
+  { path: 'perfil/crear', component: PerfilProfesionalFormComponent, canActivate: [AuthGuard] },
   { path: 'perfiles/editar/:id', component: PerfilProfesionalFormComponent, canActivate: [AuthGuard] },
   { path: 'admin/users', component: UserListComponent, canActivate: [AuthGuard] },
-  { path: 'perfil-profesional/:id', component: PerfilProfesionalDetailComponent },
+  { path: 'perfil-profesional/:id', component: PerfilProfesionalDetailComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

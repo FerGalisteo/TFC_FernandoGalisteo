@@ -1,8 +1,12 @@
 package com.dwes.security.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.dwes.security.entities.Categorias;
+import com.dwes.security.entities.LugarDisponible;
 import com.dwes.security.entities.Oferta;
 
 public interface OfertaService {
@@ -29,5 +33,13 @@ public interface OfertaService {
 
 	void guardarOferta(Oferta oferta, String username);
 	public Page<Oferta> listarOfertasPorPrecioMaximo(Double precioMax, Pageable pageable);
+
+	void addCandidato(Long ofertaId, String username) throws Exception;
+
+	void removeCandidato(Long ofertaId, String email) throws Exception;
+
+	Page<Oferta> findByCategoriaAndLugar(Categorias categoria, LugarDisponible lugar, Pageable pageable);
+
+	List<Oferta> getAllOfertas();
 
 }

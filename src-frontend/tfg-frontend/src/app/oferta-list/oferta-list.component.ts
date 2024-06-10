@@ -4,6 +4,9 @@ import { Oferta } from '../entities/oferta';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Categorias } from '../entities/categorias';
+import { LugarDisponible } from '../entities/lugarDisponible';
 
 @Component({
   selector: 'app-oferta-list',
@@ -12,6 +15,10 @@ import { Router } from '@angular/router';
 })
 export class OfertaListComponent implements OnInit {
   ofertas: Oferta[] = [];
+  allOfertas: Oferta[] = [];
+  filterForm: FormGroup;
+  categorias = Object.values(Categorias);
+  lugares = Object.values(LugarDisponible);
   page: number = 0;
   size: number = 10;
   totalElements: number = 0;
@@ -19,24 +26,37 @@ export class OfertaListComponent implements OnInit {
   constructor(
     private ofertaService: OfertaService,
     private authService: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private fb: FormBuilder
+  ) {
+    this.filterForm = this.fb.group({
+      categoria: [''],
+      lugar: ['']
+    });
+  }
 
   ngOnInit(): void {
-    this.getOfertas();
+    this.loadOfertas();
+    this.ofertaService.getAllOfertas().subscribe(ofertas => {
+      this.allOfertas = ofertas;
+      this.applyFilters(); // Apply filters after loading all offers
+    });
   }
 
   getOfertas(): void {
     this.ofertaService.getOfertas(this.page, this.size).subscribe(response => {
       this.ofertas = response.content;
       this.totalElements = response.totalElements;
+      this.applyFilters();
     });
   }
 
   loadMore(): void {
     this.page++;
+    const { categoria, lugar } = this.filterForm.value;
     this.ofertaService.getOfertas(this.page, this.size).subscribe(response => {
-      this.ofertas = [...this.ofertas, ...response.content];
+      this.allOfertas = [...this.allOfertas, ...response.content]; // Append new offers
+      this.applyFilters();
     });
   }
 
@@ -49,7 +69,7 @@ export class OfertaListComponent implements OnInit {
   }
 
   canDelete(oferta: any): boolean {
-    return this.canEdit(oferta); // Assuming the same rules apply for deletion
+    return this.canEdit(oferta);
   }
 
   editOferta(oferta: any): void {
@@ -74,7 +94,7 @@ export class OfertaListComponent implements OnInit {
         this.ofertaService.deleteOferta(id).subscribe(
           () => {
             Swal.fire('Eliminado!', 'La oferta ha sido eliminada.', 'success');
-            this.loadOfertas(); // Refresh the list after deletion
+            this.loadOfertas();
           },
           error => {
             Swal.fire('Error!', 'Hubo un problema al eliminar la oferta.', 'error');
@@ -89,7 +109,28 @@ export class OfertaListComponent implements OnInit {
     this.ofertaService.getOfertas(this.page, this.size).subscribe((data: any) => {
       this.ofertas = data.content;
       this.totalElements = data.totalElements;
+      this.applyFilters();
     });
+  }
+
+  applyFilters(): void {
+    const { categoria, lugar } = this.filterForm.value;
+    let filteredOfertas = this.allOfertas;
+
+    if (categoria) {
+      filteredOfertas = filteredOfertas.filter(oferta => oferta.categorias.includes(categoria));
+    }
+    if (lugar) {
+      filteredOfertas = filteredOfertas.filter(oferta => oferta.lugar === lugar);
+    }
+
+    this.ofertas = filteredOfertas.slice(0, (this.page + 1) * this.size);
+    this.totalElements = filteredOfertas.length;
+  }
+
+  onFilterChange(): void {
+    this.page = 0;
+    this.applyFilters();
   }
 
   truncateDescription(description: string, wordLimit: number): string {
