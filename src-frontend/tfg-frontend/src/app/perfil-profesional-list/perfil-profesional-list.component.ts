@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Categorias } from '../entities/categorias';
 import { LugarDisponible } from '../entities/lugarDisponible';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-perfil-profesional-list',
@@ -72,9 +73,34 @@ export class PerfilProfesionalListComponent implements OnInit {
     return this.canEdit(perfil); // Assuming the same rules apply for deletion
   }
 
+  /*
   deletePerfil(id: number): void {
     this.perfilProfesionalService.deletePerfil(id).subscribe(() => {
       this.perfiles = this.perfiles.filter(perfil => perfil.id !== id);
+    });
+  }
+  */
+
+  deletePerfil(id: number): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo!'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.perfilProfesionalService.deletePerfil(id).subscribe(() => {
+            Swal.fire('Eliminado!', 'El perfil ha sido eliminado.', 'success');
+            this.getPerfiles(); // Refresh the list after deletion
+          },
+          error => {
+            Swal.fire('Error!', 'Hubo un problema al eliminar el perfil.', 'error');
+          }
+        );
+      }
     });
   }
 

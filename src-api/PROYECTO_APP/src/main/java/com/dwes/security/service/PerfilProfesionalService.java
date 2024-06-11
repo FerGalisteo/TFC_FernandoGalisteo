@@ -30,4 +30,6 @@ public interface PerfilProfesionalService {
 
 	List<PerfilProfesional> getAllPerfiles();
 
+	PerfilProfesional findByUsuarioCreador(Usuario usuario);
+
 }

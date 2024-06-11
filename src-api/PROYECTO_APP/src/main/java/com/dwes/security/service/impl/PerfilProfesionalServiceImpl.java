@@ -57,6 +57,7 @@ public class PerfilProfesionalServiceImpl implements PerfilProfesionalService {
 
 	@Override
 	public void eliminarPerfilAdmin(Long id) {
+		System.err.println(id);
 		perfilRepository.deleteById(id);
 	}
 
@@ -79,6 +80,11 @@ public class PerfilProfesionalServiceImpl implements PerfilProfesionalService {
         return perfilRepository.findAll();
     }
 
+	@Override
+	public PerfilProfesional findByUsuarioCreador(Usuario usuario) {
+        return perfilRepository.findByUsuarioCreador(usuario);
+    }
+	
 	@Override
 	public PerfilProfesional listarPerfilesPorUsuario(Long id) {
 		Usuario usuario = usuarioRepositorio.findById(id)

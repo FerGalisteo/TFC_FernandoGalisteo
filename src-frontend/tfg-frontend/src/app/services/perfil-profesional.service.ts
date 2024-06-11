@@ -27,6 +27,14 @@ export class PerfilProfesionalService {
     );
   }
 
+  getMiPerfil(): Observable<PerfilProfesional> {
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<PerfilProfesional>(`${this.apiUrl}/mi-perfil`, { headers });
+  }
+
   getPerfilesPorUsuario(id: number): Observable<PerfilProfesional[]> {
 
     const token = localStorage.getItem('token');
@@ -37,14 +45,14 @@ export class PerfilProfesionalService {
     return this.http.get<PerfilProfesional[]>(`${this.apiUrl}/usuario/${id}`, { headers });
   }
 
-  getPerfilById(id: number): Observable<PerfilProfesional[]> {
+  getPerfilById(id: number): Observable<PerfilProfesional> {
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<PerfilProfesional[]>(`${this.apiUrl}/${id}`, { headers });
+    return this.http.get<PerfilProfesional>(`${this.apiUrl}/${id}`, { headers });
   }
 
   createPerfil(perfil: PerfilProfesional, imagenes: File[]): Observable<PerfilProfesional> {

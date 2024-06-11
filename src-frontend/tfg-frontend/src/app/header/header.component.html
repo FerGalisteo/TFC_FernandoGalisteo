@@ -1,9 +1,9 @@
 <nav class="navbar bg-dark sticky-top shadow mw-100">
     <div class="container-fluid col-md-9 ">
-      <a class="navbar-brand " href="/home"><img src="../../assets/img/logos/fer_qg_blanco_sin_fondo_con_marco.png" alt="QuickGig Logo" width="120px" height="42px"></a>
+      <a class="navbar-brand " href="/home"><img src="../../assets/img/logos/fer_qg_blanco_sin_fondo_sin_marco.png" alt="QuickGig Logo" width="120px" height="42px"></a>
   
       <!-- Nav-pills for large screens -->
-      <ul class="nav nav-pills bg-dark ms-auto d-none d-lg-flex justify-content-evenly">
+      <ul class="nav nav-pills bg-dark ms-auto d-none d-xl-flex justify-content-evenly">
         
         <li class="nav-item" *ngIf="isUserAdmin()">
           <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">Usuarios</a>
@@ -21,10 +21,16 @@
         <li class="nav-item" *ngIf="isAuthenticated">
             <a class="nav-link" routerLink="/oferta/nueva" routerLinkActive="active">Sube tu Oferta</a>
         </li>
-        <li class="nav-item" *ngIf="isAuthenticated">
-            <a class="nav-link" routerLink="/perfil/crear" routerLinkActive="active" >Ofrece tu servicio</a>
+        <li class="nav-item" *ngIf="isAuthenticated && !perfilProfesionalId">
+            <a class="nav-link" routerLink="/perfil/crear" routerLinkActive="active" >Ofrece tu Servicio</a>
         </li>
-        
+        <li class="nav-item" *ngIf="isAuthenticated && perfilProfesionalId">
+            <a class="nav-link" [routerLink]="['/perfil-profesional', perfilProfesionalId]" routerLinkActive="active">Mi Perfil</a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated">
+            <a class="nav-link" routerLink="/mis-ofertas" routerLinkActive="active">Mis Ofertas</a>
+          </li>
+          
         
         <li class="nav-item" *ngIf="!isAuthenticated">
           <a class="nav-link" routerLink="/login" routerLinkActive="active">Iniciar Sesión</a>
@@ -38,12 +44,12 @@
       </ul>
   
       <!-- Button for offcanvas menu, only visible on md and below -->
-      <button class="navbar-toggler d-lg-none  " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <button class="navbar-toggler d-xl-none  " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
   
       <!-- Offcanvas for small screens -->
-      <div class="offcanvas offcanvas-end d-lg-none bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas offcanvas-end d-xl-none bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
           <h3 class="offcanvas-title text-light" id="offcanvasNavbarLabel">Menu</h3>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -60,7 +66,6 @@
             <li class="nav-item" *ngIf="isUserUser()">
               <a class="nav-link offcanvas-navlink" routerLink="/user" routerLinkActive="active" (click)="closeOffcanvas()">Mi Perfil</a>
             </li>
-
             
             <li class="nav-item">
               <a class="nav-link offcanvas-navlink" routerLink="/ofertas" routerLinkActive="active" (click)="closeOffcanvas()"><i class="bi bi-briefcase-fill"></i> Empleos</a>
@@ -71,10 +76,21 @@
             <li class="nav-item" *ngIf="isAuthenticated">
               <a class="nav-link offcanvas-navlink" routerLink="/oferta/nueva" routerLinkActive="active" (click)="closeOffcanvas()"><i class="bi bi-send-arrow-up-fill"></i> Sube tu Oferta</a>
             </li>
-            <li class="nav-item" *ngIf="isAuthenticated">
-                <a class="nav-link offcanvas-navlink" routerLink="/perfil/crear" routerLinkActive="active"><i class="bi bi-box-arrow-right"></i> Ofrece tu servicio</a>
+           
+
+            <li class="nav-item" *ngIf="isAuthenticated && !perfilProfesionalId">
+                <a class="nav-link offcanvas-navlink" routerLink="/perfil/crear" routerLinkActive="active" (click)="closeOffcanvas()">Ofrece tu Servicio</a>
             </li>
-            
+            <li class="nav-item" *ngIf="isAuthenticated && perfilProfesionalId">
+                <a class="nav-link offcanvas-navlink" [routerLink]="['/perfil-profesional', perfilProfesionalId]" routerLinkActive="active" (click)="closeOffcanvas()">Mi Perfil</a>
+            </li>
+
+
+
+            <li class="nav-item" *ngIf="isAuthenticated">
+                <a class="nav-link offcanvas-navlink" routerLink="/mis-ofertas" routerLinkActive="active">Mis Ofertas</a>
+              </li>
+              
             <li class="nav-item" *ngIf="!isAuthenticated">
               <a class="nav-link offcanvas-navlink" routerLink="/login" routerLinkActive="active" (click)="closeOffcanvas()"><i class="bi bi-box-arrow-in-left"></i> Iniciar Sesión</a>
             </li>

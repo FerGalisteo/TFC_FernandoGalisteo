@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dwes.security.adapter.GsonProvider;
 import com.dwes.security.entities.Oferta;
 import com.dwes.security.entities.PerfilProfesional;
 import com.dwes.security.entities.Role;
@@ -30,21 +32,23 @@ public class PerfilProfesionalController {
 	@Autowired
 	private PerfilProfesionalService perfilProfesionalService;
 
+	private final Gson gson = GsonProvider.createGson();
+	
 	@PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USER')")
     public ResponseEntity<?> crearPerfil(@RequestPart("publicacion") String publicacion,
                                          @RequestParam(required = false) Map<String, MultipartFile> imagenes,
                                          @AuthenticationPrincipal Usuario usuario) {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
-		PerfilProfesional perfil;
+        PerfilProfesional perfil;
         try {
-            perfil = new Gson().fromJson(publicacion, PerfilProfesional.class);
+            perfil = gson.fromJson(publicacion, PerfilProfesional.class);
             return ResponseEntity.ok(perfilProfesionalService.crearPerfil(perfil, imagenes, username));
         } catch (IOException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-	}
+    }
 
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
@@ -74,6 +78,17 @@ public class PerfilProfesionalController {
         List<PerfilProfesional> perfiles = perfilProfesionalService.getAllPerfiles();
         return ResponseEntity.ok(perfiles);
     }
+	
+	@GetMapping("/mi-perfil")
+    @PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
+    public ResponseEntity<PerfilProfesional> getMiPerfil(@AuthenticationPrincipal Usuario usuario) {
+        PerfilProfesional perfil = perfilProfesionalService.findByUsuarioCreador(usuario);
+        if (perfil != null) {
+            return new ResponseEntity<>(perfil, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
 
 /*
 	@GetMapping("/usuario/{id}")
@@ -89,18 +104,18 @@ public class PerfilProfesionalController {
 	}
 
 	@PutMapping("/{id}")
-	@PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
-	public ResponseEntity<?> actualizarPerfil(@PathVariable Long id, @RequestPart("publicacion") String publicacion,
+    @PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> actualizarPerfil(@PathVariable Long id, @RequestPart("publicacion") String publicacion,
                                               @RequestParam(required = false) Map<String, MultipartFile> imagenes,
                                               @AuthenticationPrincipal Usuario usuario) {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
-		PerfilProfesional perfilActualizado;
+        PerfilProfesional perfilActualizado;
         try {
-            perfilActualizado = new Gson().fromJson(publicacion, PerfilProfesional.class);
+            perfilActualizado = gson.fromJson(publicacion, PerfilProfesional.class);
             return ResponseEntity.ok(perfilProfesionalService.actualizarPerfil(id, perfilActualizado, imagenes, username));
         } catch (IOException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-	}
+    }
 }

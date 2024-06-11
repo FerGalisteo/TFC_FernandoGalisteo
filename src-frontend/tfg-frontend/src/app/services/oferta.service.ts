@@ -50,6 +50,15 @@ export class OfertaService {
     );
   }
 
+  getMisOfertas(page: number, size: number): Observable<any> {
+    const token = localStorage.getItem('token'); // O el método que uses para almacenar el token
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    let params = new HttpParams().set('page', `${page}`).set('size', `${size}`);
+    return this.http.get<any>(`${this.apiUrl}/mis-ofertas`, { headers, params });
+  }
+
   createOferta(oferta: Oferta): Observable<void> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders({

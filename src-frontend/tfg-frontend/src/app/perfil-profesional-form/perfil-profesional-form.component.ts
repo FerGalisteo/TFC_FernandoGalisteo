@@ -18,7 +18,7 @@ export class PerfilProfesionalFormComponent implements OnInit {
   lugaresDisponibles = Object.values(LugarDisponible);
   categorias = Object.values(Categorias); 
   imagenes: File[] = [];
-  perfil: PerfilProfesional;
+  perfil: PerfilProfesional | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -45,8 +45,15 @@ export class PerfilProfesionalFormComponent implements OnInit {
   }
 
   loadPerfil(id: number): void {
-    this.perfilProfesionalService.getPerfilesPorUsuario(id).subscribe(perfil => {
-      this.perfilForm.patchValue(perfil);
+    this.perfilProfesionalService.getPerfilById(id).subscribe(perfil => {
+      this.perfil = perfil;
+      this.perfilForm.patchValue({
+        titulo: perfil.titulo,
+        descripcion: perfil.descripcion,
+        categorias: perfil.categorias,
+        lugaresDisponibles: perfil.lugaresDisponibles
+        
+      });
     });
   }
 

@@ -13,12 +13,14 @@ import { UserListComponent } from './user-list/user-list.component';
 import { OfertaVistaComponent } from './oferta-vista/oferta-vista.component';
 import { PerfilProfesionalDetailComponent } from './perfil-profesional-detail/perfil-profesional-detail.component';
 import { PerfilProfesionalVistaComponent } from './perfil-profesional-vista/perfil-profesional-vista.component';
+import { MisOfertasComponent } from './mis-ofertas/mis-ofertas.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'ofertas', component: OfertaVistaComponent },
+  { path: 'mis-ofertas', component: MisOfertasComponent, canActivate: [AuthGuard] },
   { path: 'oferta/nueva', component: OfertaFormComponent, canActivate: [AuthGuard] },
   { path: 'oferta/editar/:id', component: OfertaFormComponent, canActivate: [AuthGuard] },
   { path: 'oferta/:id', component: OfertaDetailComponent, canActivate: [AuthGuard] },

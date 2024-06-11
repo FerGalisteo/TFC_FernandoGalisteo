@@ -198,6 +198,13 @@ public class OfertaController {
         return ResponseEntity.ok(ofertas);
     }
 	
+	@GetMapping("/mis-ofertas")
+    @PreAuthorize("hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')")
+    public ResponseEntity<Page<Oferta>> getMisOfertas(@AuthenticationPrincipal Usuario usuario,
+                                                      @RequestParam int page, @RequestParam int size) {
+        Page<Oferta> ofertas = ofertaService.getOfertasByUsuario(usuario, page, size);
+        return new ResponseEntity<>(ofertas, HttpStatus.OK);
+    }
 	
 	//FILTRADOS
 	

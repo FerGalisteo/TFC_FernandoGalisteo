@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -236,6 +237,11 @@ public class OfertaServiceImpl implements OfertaService {
 	
 	public List<Oferta> getAllOfertas() {
         return ofertaRepository.findAll();
+    }
+	
+	public Page<Oferta> getOfertasByUsuario(Usuario usuario, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ofertaRepository.findByUsuarioCreador(usuario, pageable);
     }
 
 }

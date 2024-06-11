@@ -16,7 +16,7 @@ public class Imagen {
     private Long id;
     private String nombre;
     private String tipo;
-    @Column
+    @Column(length = 500000)
     private byte[] datos;
 
     public Imagen() {

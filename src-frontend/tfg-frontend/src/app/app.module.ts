@@ -21,6 +21,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { OfertaVistaComponent } from './oferta-vista/oferta-vista.component';
 import { PerfilProfesionalDetailComponent } from './perfil-profesional-detail/perfil-profesional-detail.component';
 import { PerfilProfesionalVistaComponent } from './perfil-profesional-vista/perfil-profesional-vista.component';
+import { MisOfertasComponent } from './mis-ofertas/mis-ofertas.component';
 
 
 
@@ -40,7 +41,8 @@ import { PerfilProfesionalVistaComponent } from './perfil-profesional-vista/perf
     UserListComponent,
     OfertaVistaComponent,
     PerfilProfesionalDetailComponent,
-    PerfilProfesionalVistaComponent
+    PerfilProfesionalVistaComponent,
+    MisOfertasComponent
   ],
   imports: [
     BrowserModule,

@@ -50,7 +50,7 @@ public class Usuario implements UserDetails {
 	    @OneToMany(mappedBy = "usuarioCreador", cascade = CascadeType.ALL, orphanRemoval = true)
 	    private List<Oferta> ofertas = new ArrayList<>();
 
-	    @OneToOne(mappedBy = "usuarioCreador", cascade = CascadeType.ALL, orphanRemoval = true)
+	    @OneToOne(mappedBy = "usuarioCreador", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	    private PerfilProfesional perfilProfesional;
 
 	    @Transactional

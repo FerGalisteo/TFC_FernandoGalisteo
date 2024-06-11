@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import com.dwes.security.entities.Categorias;
 import com.dwes.security.entities.LugarDisponible;
 import com.dwes.security.entities.Oferta;
+import com.dwes.security.entities.Usuario;
 
 public interface OfertaService {
 
@@ -41,5 +42,7 @@ public interface OfertaService {
 	Page<Oferta> findByCategoriaAndLugar(Categorias categoria, LugarDisponible lugar, Pageable pageable);
 
 	List<Oferta> getAllOfertas();
+
+	Page<Oferta> getOfertasByUsuario(Usuario usuario, int page, int size);
 
 }

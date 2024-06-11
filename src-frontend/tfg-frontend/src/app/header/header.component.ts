@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { PerfilProfesionalService } from '../services/perfil-profesional.service';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +14,9 @@ export class HeaderComponent implements OnInit {
   isAuthenticated = false;
   isAdmin = false;
   isUser = false;
-
-  constructor(private authService: AuthService, private router: Router) { }
+  perfilProfesionalId: number | null = null;
+  
+  constructor(private authService: AuthService, private router: Router, private perfilProfesionalService: PerfilProfesionalService) { }
 
   ngOnInit(): void {
     this.authService.getCurrentUser();
@@ -22,6 +24,9 @@ export class HeaderComponent implements OnInit {
     this.isUserAdmin();
     this.isUserUser();
     this.updateUserStatus();
+    if (this.isAuthenticated) {
+      this.checkPerfilProfesional();
+    }
   }
 
 
@@ -29,6 +34,14 @@ export class HeaderComponent implements OnInit {
     this.isAuthenticated = this.authService.isAuthenticated();
     console.log('isUser:', this.isUser);
     console.log('isAdmin:', this.isAdmin);
+  }
+
+  checkPerfilProfesional(): void {
+    this.perfilProfesionalService.getMiPerfil().subscribe(perfil => {
+      if (perfil) {
+        this.perfilProfesionalId = perfil.id;
+      }
+    });
   }
 
   logout(): void {

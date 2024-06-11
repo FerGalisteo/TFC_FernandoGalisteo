@@ -29,9 +29,11 @@
               <div class="col-md-8">
                 <h5 class="card-header bg-dark text-light">{{ perfil.titulo }}</h5>
                 <div class="card-body">
-                  <p class="card-text">{{ perfil.descripcion }}</p>
-                  <p class="card-text"><small class="text-muted">Categorías: {{ perfil.categorias.join(', ') }}</small></p>
-                  <p class="card-text"><small class="text-muted">Lugares Disponibles: {{ perfil.lugaresDisponibles.join(', ') }}</small></p>
+                    <div class="m-2">
+                        <p class="card-text">{{ perfil.descripcion }}</p>
+                        <p class="card-text"><small class="text-muted">Categorías: {{ perfil.categorias.join(', ') }}</small></p>
+                        <p class="card-text"><small class="text-muted">Lugares Disponibles: {{ perfil.lugaresDisponibles.join(', ') }}</small></p>
+                    </div>
                   <div class="card-footer d-flex justify-content-around px-1">
                     <button class="btn btn-outline-success" (click)="detailPerfil(perfil.id)"><i class="bi bi-arrow-down-left-circle-fill"></i> Ver Detalle</button>
                     <button *ngIf="canEdit(perfil)" class="btn btn-primary" (click)="editPerfil(perfil.id)"><i class="bi bi-pencil-square"></i></button>
@@ -41,7 +43,7 @@
               </div>
               <div class="col-md-4 d-none d-md-flex align-items-center">
                 <div class="" *ngIf="perfil.imagenes.length > 0">
-                  <img *ngFor="let imagen of perfil.imagenes" [src]="'data:image/jpeg;base64,' + imagen.datos" [alt]="imagen.nombre" class="img-fluid" />
+                  <img *ngFor="let imagen of perfil.imagenes" [src]="'data:image/jpeg;base64,' + imagen.datos" [alt]="imagen.nombre" class="img-fluid"/>
                 </div>
                 <div *ngIf="perfil.imagenes.length === 0">
                   <p>No hay imágenes disponibles.</p>

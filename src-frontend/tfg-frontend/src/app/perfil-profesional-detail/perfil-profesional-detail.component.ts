@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PerfilProfesionalService } from '../services/perfil-profesional.service';
+import { AuthService } from '../services/auth.service';
+import { PerfilProfesional } from '../entities/perfil-profesional';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-perfil-profesional-detail',
@@ -9,10 +12,13 @@ import { PerfilProfesionalService } from '../services/perfil-profesional.service
 })
 export class PerfilProfesionalDetailComponent implements OnInit {
   perfil: any;
+  perfiles: PerfilProfesional[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private perfilProfesionalService: PerfilProfesionalService
+    private perfilProfesionalService: PerfilProfesionalService,
+    private authService: AuthService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -31,5 +37,48 @@ export class PerfilProfesionalDetailComponent implements OnInit {
         console.error('Error al cargar el perfil profesional:', err);
       }
     });
+  }
+
+  canEdit(perfil: any): boolean {
+    const user = this.authService.getCurrentUser();
+    return (
+      this.authService.hasRole('ROLE_ADMIN') ||
+      (this.authService.hasRole('ROLE_USER') && perfil.usuarioCreador.username === user.username)
+    );
+  }
+
+  canDelete(perfil: any): boolean {
+    return this.canEdit(perfil); // Assuming the same rules apply for deletion
+  }
+
+  deletePerfil(id: number): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo!'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.perfilProfesionalService.deletePerfil(id).subscribe(() => {
+            Swal.fire('Eliminado!', 'El perfil ha sido eliminado.', 'success');
+            this.router.navigate(['/home']); // Refresh the list after deletion
+          },
+          error => {
+            Swal.fire('Error!', 'Hubo un problema al eliminar el perfil.', 'error');
+          }
+        );
+      }
+    });
+  }
+
+  editPerfil(id: number): void {
+    this.router.navigate(['/perfiles/editar', id]);
+  }
+
+  detailPerfil(id: number): void {
+    this.router.navigate(['/perfil-profesional', id]);
   }
 }
