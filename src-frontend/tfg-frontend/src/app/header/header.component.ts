@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { PerfilProfesionalService } from '../services/perfil-profesional.service';
@@ -15,10 +15,14 @@ export class HeaderComponent implements OnInit {
   isAdmin = false;
   isUser = false;
   perfilProfesionalId: number | null = null;
+  windowScrolled = false;
   
   constructor(private authService: AuthService, private router: Router, private perfilProfesionalService: PerfilProfesionalService) { }
 
   ngOnInit(): void {
+    window.addEventListener('scroll', () => {
+      this.windowScrolled = window.scrollY > 300;
+    });
     this.authService.getCurrentUser();
     console.log(this.authService.getCurrentUser())
     this.isUserAdmin();
@@ -67,6 +71,12 @@ export class HeaderComponent implements OnInit {
       }
       document.body.classList.remove('offcanvas-open');
     }
+  }
+
+  
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 

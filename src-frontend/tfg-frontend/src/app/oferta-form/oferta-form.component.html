@@ -42,13 +42,13 @@
           </div>
 
           <div class="mb-3">
-            <label for="categoria" class="form-label">Categoría</label>
-            <select id="categoria" formControlName="categoria" class="form-select" 
-                    [class.is-invalid]="ofertaForm.get('categoria').invalid && (ofertaForm.get('categoria').dirty || ofertaForm.get('categoria').touched)">
+            <label for="categorias" class="form-label">Categorías</label>
+            <select id="categorias" formControlName="categorias" class="form-select" multiple
+                    [class.is-invalid]="ofertaForm.get('categorias').invalid && (ofertaForm.get('categorias').dirty || ofertaForm.get('categorias').touched)">
               <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
             </select>
-            <div *ngIf="ofertaForm.get('categoria').invalid && (ofertaForm.get('categoria').dirty || ofertaForm.get('categoria').touched)" class="invalid-feedback">
-              <div *ngIf="ofertaForm.get('categoria').errors['required']">La categoría es obligatoria.</div>
+            <div *ngIf="ofertaForm.get('categorias').invalid && (ofertaForm.get('categorias').dirty || ofertaForm.get('categorias').touched)" class="invalid-feedback">
+              <div *ngIf="ofertaForm.get('categorias').errors['required']">La categoría es obligatoria.</div>
             </div>
           </div>
   

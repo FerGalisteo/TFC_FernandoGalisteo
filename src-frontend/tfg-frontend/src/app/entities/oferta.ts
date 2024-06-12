@@ -11,7 +11,7 @@ export interface Oferta {
     precio: number;
     fechaCreacion: Date;
     fechaComienzo: Date;
-    categorias: Categorias;
+    categorias: string[];
     lugar: LugarDisponible;
     usuarioCreador?: Usuario;
     candidatos: PerfilProfesional[];

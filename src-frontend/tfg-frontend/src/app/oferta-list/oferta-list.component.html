@@ -29,6 +29,7 @@
           <div class="card-body">
             <p class="card-text">{{ truncateDescription(oferta.descripcion, 6) }}</p>
             <p class="card-text"><small class="text-muted">Sueldo: {{ oferta.precio }}€</small></p>
+            <p class="card-text"><small class="text-muted">Categoria: {{ oferta.categorias }}</small></p>
             <p class="card-text"><small class="text-muted">Fecha: {{ oferta.fechaComienzo | date }}</small></p>
             <p class="card-text"><small class="text-muted">En {{ oferta.lugar }}</small></p>
           </div>

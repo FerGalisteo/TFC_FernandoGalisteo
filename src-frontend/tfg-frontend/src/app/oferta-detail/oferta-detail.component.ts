@@ -4,6 +4,7 @@ import { OfertaService } from '../services/oferta.service';
 import { Oferta } from '../entities/oferta';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
+import { PerfilProfesionalService } from '../services/perfil-profesional.service';
 
 @Component({
   selector: 'app-oferta-detail',
@@ -13,15 +14,18 @@ import { AuthService } from '../services/auth.service';
 export class OfertaDetailComponent implements OnInit {
   oferta: Oferta | undefined;
   isCandidato: boolean = false;
+  hasPerfilProfesional: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private ofertaService: OfertaService,
-    private authService: AuthService
+    private authService: AuthService,
+    private perfilProfesionalService: PerfilProfesionalService
   ) {}
 
   ngOnInit(): void {
     this.loadOferta();
+    this.checkPerfilProfesional();
   }
 
   loadOferta(): void {
@@ -41,7 +45,23 @@ export class OfertaDetailComponent implements OnInit {
     }
   }
 
+  checkPerfilProfesional(): void {
+    this.perfilProfesionalService.getMiPerfil().subscribe(
+      perfil => {
+        this.hasPerfilProfesional = !!perfil;
+      },
+      error => {
+        this.hasPerfilProfesional = false;
+      }
+    );
+  }
+
   addCandidato(): void {
+    if (!this.hasPerfilProfesional) {
+      Swal.fire('Error', 'Primero debes registrar tu perfil profesional.', 'error');
+      return;
+    }
+
     if (this.oferta) {
       this.ofertaService.addCandidato(this.oferta.id).subscribe(
         () => {

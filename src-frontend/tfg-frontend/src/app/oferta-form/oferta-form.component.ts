@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OfertaService } from '../services/oferta.service';
 import { Oferta } from '../entities/oferta';
 import { LugarDisponible } from '../entities/lugarDisponible';
-import Swal from 'sweetalert2';
 import { Categorias } from '../entities/categorias';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-oferta-form',
@@ -16,7 +16,7 @@ export class OfertaFormComponent implements OnInit {
   ofertaForm: FormGroup;
   ofertaId: number | null = null;
   lugaresDisponibles = Object.values(LugarDisponible);
-  categorias = Object.values(Categorias);
+  categorias = Object.values(Categorias); 
   oferta: Oferta;
 
   constructor(
@@ -31,7 +31,8 @@ export class OfertaFormComponent implements OnInit {
       precio: ['', [Validators.required, Validators.min(0)]],
       fechaComienzo: ['', Validators.required],
       lugar: ['', Validators.required],
-      categoria: ['', Validators.required]
+      categorias: [[], Validators.required]
+      
     });
   }
 
