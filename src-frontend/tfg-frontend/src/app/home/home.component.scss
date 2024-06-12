@@ -1,0 +1,53 @@
+.carousel-item {
+    height: 30vh;
+    background-image:url('../../assets/img/logos/fondo.jpg');
+    background-repeat: repeat;
+    background-size: cover;
+    color: white;
+    text-align: left;
+    background-size: cover;
+  }
+  
+  .carousel-caption {
+    background-color: rgba(30, 29, 29);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    transition: transform 0.2s;
+    &:hover{
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+  }
+  
+  .card {
+    margin-bottom: 2.5rem;
+  }
+
+  .card {
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  .orange{
+    color:#ff8c00;
+  }
+  .featurette {
+    background-color: rgba(30, 29, 29, 0.9);
+    color: white;
+    border-radius: 0.5rem;
+    margin-inline: 2rem;
+    margin-bottom: 3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .featurette-image {
+    max-width: auto;
+    max-height: 200px;
+    align-self: center;
+    border-radius: 0.5rem;
+  }

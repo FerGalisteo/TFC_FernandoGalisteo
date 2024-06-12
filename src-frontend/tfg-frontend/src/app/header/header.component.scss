@@ -1,0 +1,60 @@
+.nav-link {
+
+    transition: background-color 0.3s, color 0.3s;
+    color: white;
+    &:hover, &.active {
+      background-color: #ff8c00;
+      color: black;
+    }
+  }
+
+  .navbar-toggler{
+    background-color: #ff8c00;
+  }
+
+  .offcanvas-navlink{
+    padding-left: 5%;
+    border-radius: 3px;
+  }
+  
+  .btn-close{
+    background-color: #ff8c00;
+  }
+
+  .offcanvas-body {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .offcanvas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .to-top {
+    position: fixed;
+    opacity: 0;
+    bottom: 40px;
+    right: 40px;
+    z-index: 1000;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    outline: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .to-top:hover{
+    background-color: #ff8c00;
+  }
+  
+  .show-scrollTop {
+    opacity: 1 !important;
+    transition: all 0.2s ease-in-out;
+  }

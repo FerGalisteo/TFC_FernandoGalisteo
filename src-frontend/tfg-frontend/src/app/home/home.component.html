@@ -1,0 +1,74 @@
+<div class="container mt-4">
+<div class="row featurette bg-dark col-sm-12">
+    <div class="col-md-7">
+      <h2 class="featurette-heading fw-normal lh-1">¿Necesitas una mano?<span class="orange">Conecta.</span></h2>
+      <p class="lead">QuickGig es la plataforma ideal para conectar con profesionales de forma rápida.
+          Publica tus ofertas de trabajo y los profesionales podrán ponerse en contacto si les interesa.
+          O puedes revisar perfiles que cuadren con tus necesidades.
+      </p>
+    </div>
+    <div class="col-md-5 order-md-1 d-flex justify-content-center">
+      <img src="../../assets/img/logos/photographers.jpg" class="featurette-image img-fluid mx-auto" alt="Featurette image">
+    </div>
+  </div>
+</div>
+
+<div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button *ngFor="let oferta of ofertas; let i = index" type="button" data-bs-target="#myCarousel" [attr.data-bs-slide-to]="i" [class.active]="i === 0" [attr.aria-label]="'Slide ' + (i + 1)" [attr.aria-current]="i === 0 ? 'true' : null"></button>
+    </div>
+    <div class="carousel-inner">
+      <div *ngFor="let oferta of ofertas; let i = index" class="carousel-item" [class.active]="i === 0" [routerLink]="['/oferta', oferta.id]">
+        <div class="carousel-caption text-start bg-dark">
+          <h1>{{ oferta.titulo }}</h1>
+          <p class="opacity-75">{{ truncateDescription(oferta.descripcion, 6) }}</p>
+          <p><a class="btn btn-lg btn-primary" [routerLink]="['/oferta', oferta.id]">Ver más</a></p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+  <div class="container mt-4">
+    <div class="row col-sm-12 featurette bg-dark">
+      <div class=" col-md-7 order-md-2">
+        <h2 class="featurette-heading fw-normal lh-1">¿Eres profesional? <span class="text-info">Date a conocer</span></h2>
+        <p class="lead">En QuickGig podrás dar a conocer tus servicios, experiencia, equipo y talento. Muestra lo mejor de ti y tu trabajo, para conectar con otros profesionales del sector.</p>
+      </div>
+      <div class="col-md-5 order-md-1 d-flex justify-content-center">
+        <img src="../../assets/img/logos/videoman.jpg" class="featurette-image img-fluid mx-auto" alt="Featurette image">
+      </div>
+    </div>
+
+ <div class="container mt-4">
+    <div class="row">
+      <div class="col-12">
+        <h3>Perfiles Profesionales</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let perfil of perfiles">
+        <div class="card mb-4 shadow-sm bg-dark">
+            <h5 class="card-header text-light">{{ perfil.titulo }}</h5>
+          <div class="card-body">
+            
+            <p class="text-light opacity-75">{{ truncateDescription(perfil.descripcion, 6) }}</p>
+            <a [routerLink]="['/perfil-profesional', perfil.id]" class="btn btn-primary">Ver más</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  
+  
+    
+  </div>

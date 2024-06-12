@@ -1,0 +1,47 @@
+<div class="container mt-4" *ngIf="perfil">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex align-items-center mb-4 p-3 bg-dark text-light rounded">
+          <div>
+            <h3 class="mb-0">{{ perfil.titulo }}</h3>
+          </div>
+          <div class="ms-auto">
+            <img [src]="'data:image/jpeg;base64,' + perfil.imagenes[0]?.datos" [alt]="perfil.imagenes[0]?.nombre" class="img-fluid rounded shadow-sm encauzado-img" *ngIf="perfil.imagenes.length > 0" />
+          </div>
+        </div>
+  
+        <p class="lead">{{ perfil.descripcion }}</p>
+  
+        <div class="mb-4">
+          <h5 class="text-secondary">Categorías</h5>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let categoria of perfil.categorias" class="list-group-item">{{ categoria }}</li>
+          </ul>
+        </div>
+  
+        <div class="mb-4">
+          <h5 class="text-secondary">Lugares Disponibles</h5>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let lugar of perfil.lugaresDisponibles" class="list-group-item">{{ lugar }}</li>
+          </ul>
+        </div>
+  
+        <div class="mb-4" *ngIf="perfil.imagenes.length > 1">
+          <h5 class="text-secondary">Imágenes</h5>
+          <div class="row">
+            <div class="col-md-4 mb-3" *ngFor="let imagen of perfil.imagenes.slice(1)">
+              <img [src]="'data:image/jpeg;base64,' + imagen.datos" [alt]="imagen.nombre" class="img-fluid rounded shadow-sm encauzado-img" />
+            </div>
+          </div>
+        </div>
+        <div *ngIf="perfil.imagenes.length === 0">
+          <p>No hay imágenes disponibles.</p>
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-around px-1">
+        <button *ngIf="canEdit(perfil)" class="btn btn-primary" (click)="editPerfil(perfil.id)"><i class="bi bi-pencil-square"></i></button>
+        <button *ngIf="canDelete(perfil)" class="btn btn-danger" (click)="deletePerfil(perfil.id)"><i class="bi bi-trash3-fill"></i></button>
+      </div>
+    </div>
+  </div>
+  

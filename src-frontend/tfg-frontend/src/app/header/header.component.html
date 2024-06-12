@@ -1,0 +1,112 @@
+<nav class="navbar bg-dark sticky-top shadow mw-100">
+    <div class="container-fluid col-md-9 ">
+      <a class="navbar-brand " href="/home"><img src="../../assets/img/logos/fer_qg_blanco_sin_fondo_sin_marco.png" alt="QuickGig Logo" width="120px" height="42px"></a>
+  
+      <!-- Nav-pills for large screens -->
+      <ul class="nav nav-pills bg-dark ms-auto d-none d-xl-flex justify-content-evenly">
+        
+        <li class="nav-item" *ngIf="isUserAdmin()">
+          <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">Usuarios</a>
+        </li>
+        <li class="nav-item" *ngIf="isUserUser()">
+          <a class="nav-link" routerLink="/user" routerLinkActive="active">Mi Perfil</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/ofertas" routerLinkActive="active">Empleos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/perfiles" routerLinkActive="active">Profesionales</a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated">
+            <a class="nav-link" routerLink="/oferta/nueva" routerLinkActive="active">Sube tu Oferta</a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated && !perfilProfesionalId">
+            <a class="nav-link" routerLink="/perfil/crear" routerLinkActive="active" >Ofrece tu Servicio</a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated && perfilProfesionalId">
+            <a class="nav-link" [routerLink]="['/perfil-profesional', perfilProfesionalId]" routerLinkActive="active">Mi Perfil</a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated">
+            <a class="nav-link" routerLink="/mis-ofertas" routerLinkActive="active">Mis Ofertas</a>
+          </li>
+          
+        
+        <li class="nav-item" *ngIf="!isAuthenticated">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">Iniciar Sesión</a>
+        </li>
+        <li class="nav-item" *ngIf="!isAuthenticated">
+          <a class="nav-link" routerLink="/signup" routerLinkActive="active">Regístrate</a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthenticated">
+          <a class="nav-link" href="/home" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+  
+      <!-- Button for offcanvas menu, only visible on md and below -->
+      <button class="navbar-toggler d-xl-none  " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Offcanvas for small screens -->
+      <div class="offcanvas offcanvas-end d-xl-none bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h3 class="offcanvas-title text-light" id="offcanvasNavbarLabel">Menu</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a class="nav-link offcanvas-navlink" routerLink="/home" routerLinkActive="active" (click)="closeOffcanvas()"><i class="bi bi-house-fill"></i> Home</a>
+              </li>
+            <li class="nav-item" *ngIf="isUserAdmin()">
+              <a class="nav-link offcanvas-navlink" routerLink="/admin/users" routerLinkActive="active" (click)="closeOffcanvas()"><i class="bi bi-people-fill"></i> Usuarios</a>
+            </li>
+            <li class="nav-item" *ngIf="isUserUser()">
+              <a class="nav-link offcanvas-navlink" routerLink="/user" routerLinkActive="active" (click)="closeOffcanvas()">Mi Perfil</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link offcanvas-navlink" routerLink="/ofertas" routerLinkActive="active" (click)="closeOffcanvas()"><i class="bi bi-briefcase-fill"></i> Empleos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link offcanvas-navlink" routerLink="/perfiles" routerLinkActive="active" (click)="closeOffcanvas()"><i class="bi bi-camera-fill"></i> Profesionales</a>
+            </li>
+            <li class="nav-item" *ngIf="isAuthenticated">
+              <a class="nav-link offcanvas-navlink" routerLink="/oferta/nueva" routerLinkActive="active" (click)="closeOffcanvas()"><i class="bi bi-send-arrow-up-fill"></i> Sube tu Oferta</a>
+            </li>
+           
+
+            <li class="nav-item" *ngIf="isAuthenticated && !perfilProfesionalId">
+                <a class="nav-link offcanvas-navlink" routerLink="/perfil/crear" routerLinkActive="active" (click)="closeOffcanvas()">Ofrece tu Servicio</a>
+            </li>
+            <li class="nav-item" *ngIf="isAuthenticated && perfilProfesionalId">
+                <a class="nav-link offcanvas-navlink" [routerLink]="['/perfil-profesional', perfilProfesionalId]" routerLinkActive="active" (click)="closeOffcanvas()">Mi Perfil</a>
+            </li>
+
+
+
+            <li class="nav-item" *ngIf="isAuthenticated">
+                <a class="nav-link offcanvas-navlink" routerLink="/mis-ofertas" routerLinkActive="active">Mis Ofertas</a>
+              </li>
+              
+            <li class="nav-item" *ngIf="!isAuthenticated">
+              <a class="nav-link offcanvas-navlink" routerLink="/login" routerLinkActive="active" (click)="closeOffcanvas()"><i class="bi bi-box-arrow-in-left"></i> Iniciar Sesión</a>
+            </li>
+            <li class="nav-item" *ngIf="!isAuthenticated">
+              <a class="nav-link offcanvas-navlink" routerLink="/signup" routerLinkActive="active" (click)="closeOffcanvas()"><i class="bi bi-person-plus-fill"></i> Regístrate</a>
+            </li>
+            <li class="nav-item" *ngIf="isAuthenticated">
+              <a class="nav-link offcanvas-navlink" href="/home" (click)="logout()"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+    
+  </nav>
+  <button class="to-top" (click)="scrollToTop()" title="Volver arriba" [ngClass]="{ 'show-scrollTop': windowScrolled }">
+    ↑
+  </button>

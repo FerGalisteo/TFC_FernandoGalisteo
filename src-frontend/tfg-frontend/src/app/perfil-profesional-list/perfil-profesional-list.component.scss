@@ -1,0 +1,34 @@
+.card {
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.card-header {
+  font-size: 1.25rem;
+}
+
+.card-body {
+  padding: 0;
+  font-size: 1rem;
+}
+
+.card-footer {
+  button {
+    font-size: 0.875rem;
+  }
+}
+
+.img-fluid {
+  object-fit: cover;
+}
+
+@media (max-width: 767.98px) {
+  .card {
+    margin: 1rem 0;
+  }
+}
