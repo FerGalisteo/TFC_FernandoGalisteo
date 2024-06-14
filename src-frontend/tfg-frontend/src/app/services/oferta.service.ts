@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Oferta } from '../entities/oferta'; 
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OfertaService {
-  private apiUrl = 'http://localhost:8085/api/v1/ofertas'; // URL del backend
+  private apiUrl = environment.apiUrl+'/api/v1/ofertas'; // URL del backend
 
   constructor(private http: HttpClient) { }
 

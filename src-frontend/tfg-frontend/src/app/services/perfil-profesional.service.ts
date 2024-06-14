@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { PerfilProfesional } from '../entities/perfil-profesional';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PerfilProfesionalService {
-  private apiUrl = 'http://localhost:8085/api/v1/profesionales';
+  private apiUrl = environment.apiUrl+'/api/v1/profesionales';
 
   constructor(private http: HttpClient) { }
 
