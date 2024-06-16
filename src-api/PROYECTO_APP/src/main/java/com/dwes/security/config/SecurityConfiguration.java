@@ -86,7 +86,7 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200")); // URL del frontend
+        configuration.setAllowedOrigins(List.of("http://localhost:4200", "http://elasticbeanstalk-us-east-1-819515628932.s3-website-us-east-1.amazonaws.com")); // URL del frontend
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
