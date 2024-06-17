@@ -20,17 +20,20 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private perfilProfesionalService: PerfilProfesionalService) { }
 
   ngOnInit(): void {
-    window.addEventListener('scroll', () => {
-      this.windowScrolled = window.scrollY > 300;
-    });
+    
     this.authService.getCurrentUser();
     console.log(this.authService.getCurrentUser())
     this.isUserAdmin();
     this.isUserUser();
     this.updateUserStatus();
+    console.log(this.isAuthenticated)
+    console.log(this.isUserAdmin())
     if (this.isAuthenticated) {
       this.checkPerfilProfesional();
     }
+    window.addEventListener('scroll', () => {
+      this.windowScrolled = window.scrollY > 300;
+    });
   }
 
 
