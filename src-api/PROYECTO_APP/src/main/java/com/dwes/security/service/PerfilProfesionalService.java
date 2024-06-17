@@ -32,4 +32,7 @@ public interface PerfilProfesionalService {
 
 	PerfilProfesional findByUsuarioCreador(Usuario usuario);
 
+	PerfilProfesional actualizarPerfilAdmin(Long id, PerfilProfesional perfilActualizado,
+			Map<String, MultipartFile> imagenes, String username) throws IOException;
+
 }

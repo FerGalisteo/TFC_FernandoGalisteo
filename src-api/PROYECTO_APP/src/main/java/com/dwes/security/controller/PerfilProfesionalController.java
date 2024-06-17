@@ -111,11 +111,23 @@ public class PerfilProfesionalController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
         PerfilProfesional perfilActualizado;
-        try {
+        Set<Role> roles = usuario.getRoles();
+        
+        if(roles.contains(Role.ROLE_ADMIN)) {
+        	try {
+                perfilActualizado = gson.fromJson(publicacion, PerfilProfesional.class);
+                return ResponseEntity.ok(perfilProfesionalService.actualizarPerfilAdmin(id, perfilActualizado, imagenes, username));
+            } catch (IOException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }else {
+        	try {
             perfilActualizado = gson.fromJson(publicacion, PerfilProfesional.class);
             return ResponseEntity.ok(perfilProfesionalService.actualizarPerfil(id, perfilActualizado, imagenes, username));
         } catch (IOException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+        }
+        
     }
 }

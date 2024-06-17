@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -64,8 +64,9 @@ export class LoginComponent implements OnInit {
             console.log(user);
           }
         });
+       
+        Swal.fire('Login correcto', 'Redirigiendo', 'success');
         this.router.navigate(['/home']);
-        Swal.fire('Login correcto', 'Redirigiendo');
       },
       error: (error) => {
         Swal.fire('Error en la petición', 'Contraseña incorrecta', 'error');

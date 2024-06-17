@@ -47,7 +47,7 @@ public class Usuario implements UserDetails {
 	    @Column(name ="RolesUsuario")
 	    private Set<Role> roles = new HashSet<>();
 
-	    @OneToMany(mappedBy = "usuarioCreador", cascade = CascadeType.ALL, orphanRemoval = true)
+	    @OneToMany(mappedBy = "usuarioCreador", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	    private List<Oferta> ofertas = new ArrayList<>();
 
 	    @OneToOne(mappedBy = "usuarioCreador", cascade = CascadeType.REMOVE, orphanRemoval = true)

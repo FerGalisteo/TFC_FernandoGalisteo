@@ -119,8 +119,47 @@ public class PerfilProfesionalServiceImpl implements PerfilProfesionalService {
 			}
 			perfilActualizado.setImagenes(listImagenes);
 		}
-
 		perfilActualizado.setId(id);
+		perfilActualizado.setUsuarioCreador(usuarioRepositorio.findByEmail(username).orElse(null));
+		/*
+		PerfilProfesional perfilExistente1 = listarPerfilPorId(id);
+		perfilExistente1.setTitulo(perfilActualizado.getTitulo());
+		perfilExistente1.setDescripcion(perfilActualizado.getDescripcion());
+		perfilExistente1.setLugaresDisponibles(perfilActualizado.getLugaresDisponibles());
+		perfilExistente1.setCategorias(perfilActualizado.getCategorias());
+		perfilExistente1.setUsuarioCreador(perfilActualizado.getUsuarioCreador());
+		perfilExistente1.setImagenes(perfilActualizado.getImagenes());
+		*/
+		return perfilRepository.save(perfilActualizado);
+	}
+	
+	@Override
+	public PerfilProfesional actualizarPerfilAdmin(Long id, PerfilProfesional perfilActualizado,
+			Map<String, MultipartFile> imagenes, String username) throws IOException {
+		PerfilProfesional perfilExistente = perfilRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Perfil no encontrado"));
+
+
+		List<Imagen> listImagenes = new ArrayList<>();
+		if (imagenes != null) {
+			for (Map.Entry<String, MultipartFile> entry : imagenes.entrySet()) {
+				MultipartFile imagen = entry.getValue();
+				Imagen img = new Imagen(imagen.getOriginalFilename(), imagen.getContentType(), imagen.getBytes());
+				imagenRepository.save(img);
+				listImagenes.add(img);
+			}
+			perfilActualizado.setImagenes(listImagenes);
+		}
+		perfilActualizado.setId(id);
+		/*
+		PerfilProfesional perfilExistente1 = listarPerfilPorId(id);
+		perfilExistente1.setTitulo(perfilActualizado.getTitulo());
+		perfilExistente1.setDescripcion(perfilActualizado.getDescripcion());
+		perfilExistente1.setLugaresDisponibles(perfilActualizado.getLugaresDisponibles());
+		perfilExistente1.setCategorias(perfilActualizado.getCategorias());
+		perfilExistente1.setUsuarioCreador(perfilActualizado.getUsuarioCreador());
+		perfilExistente1.setImagenes(perfilActualizado.getImagenes());
+		*/
 		return perfilRepository.save(perfilActualizado);
 	}
 
